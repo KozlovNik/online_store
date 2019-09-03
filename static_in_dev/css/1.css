@@ -1,0 +1,247 @@
+{% load static %}
+
+html {
+  overflow-x: hidden;
+  margin-right: calc(-1 * (100vw - 100%));
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.big-wrapper {
+    background-color: rgba(247, 237, 248, 0.49);
+}
+
+.big-wrapper-2 {
+    border-top: 1px solid rgba(208, 208, 208, 0.44);
+    background-color: rgba(248, 241, 231, 0.49);
+}
+
+.top-header {
+    width: 1000px;
+    margin: 0 auto;
+}
+
+.main-nav__list {
+    list-style: none;
+    display: flex;
+    width: 100%;
+    align-items: stretch;
+}
+
+.main-nav__item {
+    margin: auto;
+    display: table;
+    text-align: center;
+    background-color: rgba(0, 201, 144, 0);
+    border-bottom: 4px solid transparent;
+}
+
+.main-nav__item:hover {
+    box-sizing: border-box;
+    border-bottom: 4px solid #779750;
+    transition-delay: 0.15s;
+    transition-duration: 0.3s;
+}
+
+.main-nav__link {
+    height: 48px;
+    display: table-cell;
+    text-decoration: none;
+    vertical-align: middle;
+    font: 20px 'Lato', sans-serif;
+    color: #51534c;
+}
+
+.main-nav__link:hover {
+    color: #779750;
+    transition-delay: 0.15s;
+    transition-duration: 0.3s;
+}
+
+.main-nav__link:active {
+    color: #499700;
+}
+
+
+.top {
+    margin: 0 0 0 50px;
+}
+
+.logo {
+    width: 80px;
+    height: 80px;
+}
+
+.page-main {
+    width: 1000px;
+    margin: 50px auto;
+    display: flex;
+    justify-content: space-between;
+}
+
+.sidebar__header {
+    color: rgba(0, 0, 0, 0.72);
+    font: 25px 'Lato', sans-serif;
+    font-weight: bold;
+    margin: 15px 0;
+}
+
+/*.hr {*/
+    /*display: block;*/
+    /*height: 1px;*/
+    /*border: 0;*/
+    /*background-color: #9f9f9f;*/
+/*}*/
+
+.sidebar__list {
+    list-style: none;
+}
+
+.sidebar__item {
+    display: table;
+    width: 200px;
+}
+
+.sidebar__link {
+    height: 40px;
+    display: table-cell;
+    text-decoration: none;
+    vertical-align: middle;
+    font: 16px 'Lato', sans-serif;
+    color: rgba(0, 0, 0, 0.72);
+    font-weight: bold;
+}
+
+.sidebar__link:hover {
+    color: #b2d235;
+}
+
+.content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    width: 780px;
+}
+
+.product {
+    padding: 17px 20px 19px;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    flex-direction: column;
+    width: 180px;
+    min-height: 350px;
+    border-radius: 5px;
+    border: 1px solid #e5e5e5;
+    margin-bottom: 20px;
+}
+
+.product:hover {
+    box-shadow: 0 2px 15px 0 rgba(0,0,0,.15);
+}
+
+.product__image {
+    display: block;
+    width: 180px;
+    height: 180px;
+}
+
+.product__rating {
+    height: 20px;
+}
+
+.product__title {
+    color: #444;
+    height: 50px;
+    overflow: hidden;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.product__title-link {
+    color: inherit;
+    height: 100%;
+    display: block;
+    text-decoration: none;
+    font-size: 14px;
+    line-height: 16px;
+}
+
+.product__title-link:hover {
+    color: #ff452a;
+}
+
+.product__price {
+    font-family: 'Open Sans', sans-serif;
+    height: 50px;
+    overflow: hidden;
+}
+
+.add-to-cart-button {
+    border: 0;
+    border-radius: 5px;
+}
+
+.add-to-cart {
+    border-radius: 5px;
+    background-color: #7ac143;
+    font-size: 20px;
+    font-family: 'PT Sans', sans-serif;
+    height: 45px;
+    display: block;
+    color: #fff;
+    width: 100%;
+    border: 0;
+}
+
+.add-to-cart:hover {
+    background-color: #008b44;
+}
+
+.add-to-cart:active {
+    border: 0;
+    background-color: #008b44;
+}
+
+
+.product-card {
+    display: flex;
+    width: 1000px;
+    min-height: 300px;
+    background-color: #1e7e34;
+}
+
+.product-gallery__image {
+    width: 440px;
+    height: 440px;
+}
+
+
+.product-card__title {
+    margin: 20px;
+}
+
+.product-buy {
+    display: flex;
+    justify-content: space-around;
+}
+
+.product-buy__price {
+    font-weight: bold;
+    font-size: 25px;
+    font-family: 'PT Sans', sans-serif;
+}
+
+.product-card__buy-button {
+    width:180px;
+    border-radius: 5px;
+    background-color: #7ac143;
+    font-size: 20px;
+    font-family: 'PT Sans', sans-serif;
+    height: 45px;
+    display: block;
+    color: #fff;
+    border: 0;
+}

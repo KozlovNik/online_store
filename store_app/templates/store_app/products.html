@@ -1,0 +1,35 @@
+{% extends 'store_app/base1.html' %}
+
+{% block title %}
+
+{% endblock %}
+
+
+{% block content %}
+    {% for product in products %}
+        <div class="product">
+            <div class="product__image-wrapper">
+                <a href="#" class="product__image-link">
+                    <img src="{{ product.image.url }}" class="product__image" alt="">
+                </a>
+            </div>
+            <div class="product__rating">
+            </div>
+            <div class="product__title">
+                <a href="{{ product.get_absolute_url }}" class="product__title-link">
+                    {{ product.name }}
+                </a>
+            </div>
+            <div class="product__price">
+                <b>{{ product.price }} рублей</b>
+            </div>
+            <div class="add-to-cart-button">
+                <button class="add-to-cart">
+                    В корзину
+                </button>
+            </div>
+        </div>
+
+    {% endfor %}
+
+{% endblock %}

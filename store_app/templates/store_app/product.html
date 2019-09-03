@@ -1,0 +1,27 @@
+{% extends 'store_app/base2.html' %}
+
+{% block title %}
+    product.name
+{% endblock %}
+
+
+{% block content %}
+    <div class="product-card">
+        <div class="product-card__gallery product-gallery">
+            <img class="product-gallery__image" src="{{ product.image.url }}" alt="">
+        </div>
+    <div class="product-main">
+        <div class="product-card__title">
+            <h1>{{ product.name }}</h1>
+        </div>
+        <div class="product-card__product-buy product-buy">
+            <div class="product-buy__price">
+                {{ product.price }} рублей
+            </div>
+            <div class="product-card__buy-button-wrapper">
+                <button class="product-card__buy-button">Купить</button>
+            </div>
+        </div>
+    </div>
+     </div>
+{% endblock %}
