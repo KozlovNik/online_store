@@ -1,0 +1,28 @@
+{% extends 'store_app/base1.html' %}
+
+{% block title %}
+{% endblock %}
+
+{% block content %}
+    <div class="">
+        <h2>Корзина</h2>
+        <table>
+            <tr>
+                <th>Товар</th>
+                <th>Количество</th>
+                <th>Цена</th>
+            </tr>
+            {% for item in cart.items.all %}
+                <tr>
+                    <td>{{ item.product.name }}</td>
+                    <td>{{ item.quantity }}</td>
+                    <td>{{ item.item_total }}</td>
+                    <td><a href="{% url 'remove_from_cart' slug=item.product.slug %}">Удалить из корзины</a></td>
+                </tr>
+            {% endfor %}
+            <tr>
+
+            </tr>
+        </table>
+    </div>
+{% endblock %}

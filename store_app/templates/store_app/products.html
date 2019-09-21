@@ -24,7 +24,7 @@
                 <b>{{ product.price }} рублей</b>
             </div>
             <div class="add-to-cart-button">
-                <button class="add-to-cart">
+                <button onclick="window.location.href = '{% url 'add_to_cart' slug=product.slug %}';" class="add-to-cart">
                     В корзину
                 </button>
             </div>

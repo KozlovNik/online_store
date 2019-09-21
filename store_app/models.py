@@ -70,11 +70,25 @@ class CartItem(models.Model):
 
 
 class Cart(models.Model):
-    item = models.ManyToManyField(CartItem, blank=True)
+    items = models.ManyToManyField(CartItem, blank=True)
     cart_total = models.DecimalField(max_digits=9, decimal_places=2, default=0.00)
 
     def __str__(self):
         return str(self.id)
+
+    def add_to_cart(self, slug):
+        product = Product.objects.get(slug=slug)
+        new_item, _ = CartItem.objects.get_or_create(product=product, item_total=product.price)
+        if new_item not in self.items.all():
+            self.items.add(new_item)
+            self.save()
+
+    def remove_from_cart(self, slug):
+        product = Product.objects.get(slug=slug)
+        for cart_item in self.items.all():
+            if cart_item.product == product:
+                self.items.remove(cart_item)
+                self.save()
 
 
 def pre_save_slug_field(sender, instance, *args, **kwargs):
