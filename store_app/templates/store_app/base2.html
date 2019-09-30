@@ -27,6 +27,7 @@
     <header class="top-header">
         <section class="top">
             <img class="logo" src="{% static 'store_app/1.svg' %}" alt="" width="20px" height="20px">
+            <div class="cart"><a href="{% url 'cart' %}">КОРЗИНА <span id="cart_count"> {{ cart.items.count }}</span></a></div>
         </section>
     </header>
 </div>
@@ -67,3 +68,6 @@
         {% endblock %}
 </main>
 </body>
+{% block js %}
+    <script src="{% static 'javascript/js.js' %}"></script>
+{% endblock %}

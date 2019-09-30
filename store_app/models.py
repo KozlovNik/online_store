@@ -68,6 +68,9 @@ class CartItem(models.Model):
     def __str__(self):
         return 'Карточка для продукта {0}'.format(self.product.name)
 
+    class Meta:
+        ordering = ['id']
+
 
 class Cart(models.Model):
     items = models.ManyToManyField(CartItem, blank=True)
@@ -78,17 +81,31 @@ class Cart(models.Model):
 
     def add_to_cart(self, slug):
         product = Product.objects.get(slug=slug)
-        new_item, _ = CartItem.objects.get_or_create(product=product, item_total=product.price)
-        if new_item not in self.items.all():
-            self.items.add(new_item)
-            self.save()
+        for item in self.items.all():
+            if item.product.name == product.name:
+                return
+        new_item = CartItem(product=product, item_total=product.price)
+        new_item.save()
+        self.items.add(new_item)
+        self.save()
 
     def remove_from_cart(self, slug):
         product = Product.objects.get(slug=slug)
         for cart_item in self.items.all():
-            if cart_item.product == product:
+            if cart_item.product.name == product.name:
                 self.items.remove(cart_item)
                 self.save()
+                cart_item.delete()
+                return
+
+    @staticmethod
+    def get_category(slug):
+        product = Product.objects.get(slug=slug)
+        return product.category.slug
+
+    def get_product_items(self):
+        ls = [item.product.name for item in self.items.all()]
+        return ls
 
 
 def pre_save_slug_field(sender, instance, *args, **kwargs):

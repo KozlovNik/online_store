@@ -1,5 +1,8 @@
 {% extends 'store_app/base1.html' %}
-
+{% load static %}
+{% block javascript %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+{% endblock %}
 {% block title %}
 
 {% endblock %}
@@ -15,6 +18,7 @@
             </div>
             <div class="product__rating">
             </div>
+
             <div class="product__title">
                 <a href="{{ product.get_absolute_url }}" class="product__title-link">
                     {{ product.name }}
@@ -24,12 +28,21 @@
                 <b>{{ product.price }} рублей</b>
             </div>
             <div class="add-to-cart-button">
-                <button onclick="window.location.href = '{% url 'add_to_cart' slug=product.slug %}';" class="add-to-cart">
-                    В корзину
-                </button>
+                {% if product.name not in products_list %}
+                    <a id="{{ product.slug }}" class="add-to-cart" data-slug="{{ product.slug }}" href="{% url 'cart' %}">
+                        Добавить
+                    </a>
+                {% else %}
+                    <a id="{{ product.slug }}" class="add-to-cart--added" href="{% url 'cart' %}">
+                        Перейти в корзину
+                    </a>
+                {% endif %}
             </div>
+
         </div>
 
     {% endfor %}
-
+{% endblock %}
+{% block js %}
+    <script src="{% static 'javascript/js.js' %}"></script>
 {% endblock %}

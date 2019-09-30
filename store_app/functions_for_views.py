@@ -5,9 +5,8 @@ def get_or_create_cart(request):
     try:
         cart_id = request.session['cart_id']
         cart = Cart.objects.get(id=cart_id)
-        print(cart.cart_total)
         request.session['total'] = cart.items.count()
-    except (Cart.DoesNotExist, KeyError) as error:
+    except (Cart.DoesNotExist, KeyError):
         cart = Cart()
         cart.save()
         cart_id = cart.id

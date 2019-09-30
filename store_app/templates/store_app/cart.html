@@ -1,4 +1,5 @@
 {% extends 'store_app/base1.html' %}
+{% load static %}
 
 {% block title %}
 {% endblock %}
@@ -13,11 +14,15 @@
                 <th>Цена</th>
             </tr>
             {% for item in cart.items.all %}
-                <tr>
+                <tr id="{{ item.product.slug }}">
                     <td>{{ item.product.name }}</td>
-                    <td>{{ item.quantity }}</td>
-                    <td>{{ item.item_total }}</td>
-                    <td><a href="{% url 'remove_from_cart' slug=item.product.slug %}">Удалить из корзины</a></td>
+                    <td>
+                        <form action="" method="GET">
+                            <input type="number" name="quantity" class="cart-item-quantity" data-id="{{ item.id }}" value="{{ item.quantity }}" min="1">
+                        </form>
+                    </td>
+                    <td id="cart-item-total-{{ item.id }}">{{ item.item_total }} руб.</td>
+                    <td><a class="remove_from_cart" data-slug="{{ item.product.slug }}" href="">Удалить из корзины</a></td>
                 </tr>
             {% endfor %}
             <tr>
@@ -25,4 +30,7 @@
             </tr>
         </table>
     </div>
+{% endblock %}
+{% block js %}
+    <script src="{% static 'javascript/js.js' %}"></script>
 {% endblock %}

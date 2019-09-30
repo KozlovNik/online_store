@@ -7,6 +7,9 @@
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    {% block javascript %}
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    {% endblock %}
     <meta name="description" content="">
     <meta name="author" content="">
     <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
@@ -25,7 +28,7 @@
     <header class="top-header">
         <section class="top">
             <img class="logo" src="{% static 'store_app/1.svg' %}" alt="" width="20px" height="20px">
-            <div class="cart"><a href="{% url 'cart' %}">КОРЗИНА <span> {{ cart.items.count }}</span></a></div>
+            <div class="cart"><a href="{% url 'cart' %}">КОРЗИНА <span id="cart_count"> {{ cart.items.count }}</span></a></div>
         </section>
     </header>
 </div>
@@ -81,3 +84,7 @@
 </main>
 
 </body>
+</html>
+{% block js %}
+    <script src="{% static 'javascript/js.js' %}"></script>
+{% endblock %}
