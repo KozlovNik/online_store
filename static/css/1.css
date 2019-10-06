@@ -10,6 +10,8 @@ html {
     padding: 0;
 }
 
+
+
 .big-wrapper {
     background-color: rgba(247, 237, 248, 0.49);
 }
@@ -67,12 +69,12 @@ html {
 
 
 .top {
-    margin: 0 0 0 50px;
+    margin: 10px 0 0 50px;
 }
 
 .logo {
-    width: 80px;
-    height: 80px;
+    width: 280px;
+    height: 280px;
 }
 
 .page-main {
@@ -180,22 +182,21 @@ html {
 }
 
 .add-to-cart-button {
-    display: table;
-    /*border: 0;*/
+    width: 100%;
+    display: flex;
     border-radius: 5px;
     cursor: pointer;
 }
 
 .add-to-cart, .add-to-cart--added {
+    width: 100%;
     text-align: center;
     border-radius: 5px;
     background-color: #7ac143;
     font-size: 20px;
     font-family: 'PT Sans', sans-serif;
     height: 45px;
-    display: table-cell;
     color: #fff;
-    width: 100%;
     border: 0;
     cursor: pointer;
 }

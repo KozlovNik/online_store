@@ -1,13 +1,16 @@
-{% load static %}
+@import url('base.css');
+@import url('header.css');
+
 
 html {
+    background-color: #ffffff;
     overflow-x: hidden;
     margin-right: calc(-1 * (100vw - 100%));
 }
 
-* {
-    margin: 0;
-    padding: 0;
+.visually-hidden {
+    font-size: 0;
+    clip: rect(0, 0, 0, 0);
 }
 
 .big-wrapper {
@@ -70,10 +73,7 @@ html {
     margin: 0 0 0 50px;
 }
 
-.logo {
-    width: 80px;
-    height: 80px;
-}
+
 
 .page-main {
     width: 1000px;
@@ -88,13 +88,6 @@ html {
     font-weight: bold;
     margin: 15px 0;
 }
-
-/*.hr {*/
-    /*display: block;*/
-    /*height: 1px;*/
-    /*border: 0;*/
-    /*background-color: #9f9f9f;*/
-/*}*/
 
 .sidebar__list {
     list-style: none;
@@ -153,6 +146,8 @@ html {
     height: 20px;
 }
 
+
+
 .product__title {
     color: #444;
     height: 50px;
@@ -181,6 +176,7 @@ html {
 
 .add-to-cart-button {
     display: table;
+    width: 100%;
 }
 
 .add-to-cart, .add-to-cart--added {

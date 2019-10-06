@@ -1,8 +1,7 @@
 from django.shortcuts import render
-from store_app.models import Product, Category, Brand, Cart, CartItem
-from django.http import HttpResponseRedirect, Http404, JsonResponse
+from store_app.models import Product, Category
+from django.http import Http404, JsonResponse
 from .functions_for_views import get_or_create_cart
-from django.urls import reverse
 from decimal import Decimal
 
 
@@ -58,6 +57,7 @@ def add_to_cart_view(request):
     cart = get_or_create_cart(request)
     slug = request.GET['product_slug']
     cart.add_to_cart(slug)
+    cart.update_total()
     return JsonResponse({'cart_total': cart.items.count()})
 
 
@@ -65,7 +65,10 @@ def remove_from_cart_view(request):
     cart = get_or_create_cart(request)
     slug = request.GET['product_slug']
     cart.remove_from_cart(slug)
-    return JsonResponse({'cart_total': cart.items.count()})
+    cart_total_price = cart.update_total()
+    return JsonResponse({'cart_total': cart.items.count(),
+                         'cart_total_price': cart_total_price
+                         })
 
 
 def change_item_quantity(request):
@@ -76,4 +79,7 @@ def change_item_quantity(request):
     item.quantity = int(quantity)
     item.item_total = int(quantity) * Decimal(item.product.price)
     item.save()
-    return JsonResponse({'cart_total': cart.items.count(), 'item_total': item.item_total})
+    cart_total_price = cart.update_total()
+    return JsonResponse({'cart_total': cart.items.count(),
+                         'item_total': item.item_total,
+                         'cart_total_price': cart_total_price})

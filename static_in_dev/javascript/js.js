@@ -24,7 +24,7 @@ $(function(){
 });
 
 $(function(){
-    $('.remove_from_cart').on('click', function (e) {
+    $('.remove-from-cart').on('click', function (e) {
         e.preventDefault();
         let product_slug = $(this).attr('data-slug');
         let data = {
@@ -36,7 +36,11 @@ $(function(){
             data: data,
             success: function (data) {
                 $('#cart_count').html(data.cart_total);
+                $('#cart-total-price').html(data.cart_total_price);
                 $('#'+product_slug).remove();
+                if (data.cart_total === 0){
+                    $('.cart__table').css('display', 'none');
+                }
             },
         })
     });
@@ -55,8 +59,18 @@ $(function(){
             url: '/change_item_quantity/',
             data: data,
             success: function (data) {
-                $('#cart-item-total-' + item_id).html(data.item_total + ' руб.')
+                $('#cart-item-total-' + item_id).html(data.item_total + ' руб.');
+                $('#cart-total-price').html(data.cart_total_price + 'руб.');
             }
         })
     })
+});
+
+// Функция отключает верхнее всплывающее окно
+let closeButton = document.getElementsByClassName('upper-popup-window__close-button')[0],
+    upperPopUpWindow = document.getElementsByClassName('upper-popup-window')[0],
+    upperPopUpWindowHidden = document.getElementsByClassName('upper-popup-window-hidden')[0];
+closeButton.addEventListener('click', function () {
+   upperPopUpWindow.style.display = 'none';
+   upperPopUpWindowHidden.style.display = 'block';
 });

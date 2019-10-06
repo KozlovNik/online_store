@@ -5,30 +5,41 @@
 {% endblock %}
 
 {% block content %}
-    <div class="">
-        <h2>Корзина</h2>
-        <table>
-            <tr>
-                <th>Товар</th>
-                <th>Количество</th>
-                <th>Цена</th>
-            </tr>
-            {% for item in cart.items.all %}
-                <tr id="{{ item.product.slug }}">
-                    <td>{{ item.product.name }}</td>
-                    <td>
-                        <form action="" method="GET">
-                            <input type="number" name="quantity" class="cart-item-quantity" data-id="{{ item.id }}" value="{{ item.quantity }}" min="1">
-                        </form>
-                    </td>
-                    <td id="cart-item-total-{{ item.id }}">{{ item.item_total }} руб.</td>
-                    <td><a class="remove_from_cart" data-slug="{{ item.product.slug }}" href="">Удалить из корзины</a></td>
+    <div class="cart">
+        <h2 class="cart__heading">Корзина</h2>
+        {% if cart.items.count > 0 %}
+            <table class="cart__table">
+                <tr>
+                    <th>Товар</th>
+                    <th>Количество</th>
+                    <th>Цена</th>
                 </tr>
-            {% endfor %}
-            <tr>
+                {% for item in cart.items.all %}
+                    <tr id="{{ item.product.slug }}">
+                        <td>{{ item.product.name }}</td>
+                        <td>
+                            <form action="" method="GET">
+                                <input type="number" name="quantity" class="cart-item-quantity" data-id="{{ item.id }}"
+                                       value="{{ item.quantity }}" min="1" max="100">
+                            </form>
+                        </td>
+                        <td id="cart-item-total-{{ item.id }}">{{ item.item_total }} руб.</td>
+                        <td><a class="remove-from-cart" data-slug="{{ item.product.slug }}" href="">Удалить из
+                            корзины</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                <tr>
+                    <td></td>
+                    <td>Итого</td>
+                    <td id="cart-total-price">{{ cart.cart_total }} руб.</td>
+                    <td></td>
+                </tr>
+                <tr>
 
-            </tr>
-        </table>
+                </tr>
+            </table>
+        {% endif %}
     </div>
 {% endblock %}
 {% block js %}

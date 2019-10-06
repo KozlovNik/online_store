@@ -4,6 +4,8 @@ from django.utils.text import slugify
 from transliterate import translit
 from django.urls import reverse
 from .managers import CustomProductManager
+from decimal import Decimal
+from django.conf import settings
 
 
 class Category(models.Model):
@@ -103,9 +105,28 @@ class Cart(models.Model):
         product = Product.objects.get(slug=slug)
         return product.category.slug
 
+    def update_total(self):
+        self.cart_total = Decimal(0)
+        for item in self.items.all():
+            self.cart_total += item.item_total
+        self.save()
+        return self.cart_total
+
     def get_product_items(self):
         ls = [item.product.name for item in self.items.all()]
         return ls
+
+
+ORDER_STATUS_CHOICES = (
+    ('Принят в обработку', 'Принят в обработку'),
+    ('Выполняется', 'Выполняется'),
+    ('Принят в обработку', 'Принят в обработку')
+)
+
+
+class Order(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    items = models.ManyToManyField(Cart)
 
 
 def pre_save_slug_field(sender, instance, *args, **kwargs):
