@@ -27,7 +27,7 @@
     <header class="top-header">
         <section class="top">
             <img class="logo" src="{% static 'store_app/1.svg' %}" alt="" width="20px" height="20px">
-            <div class="cart"><a href="{% url 'cart' %}">КОРЗИНА <span id="cart_count"> {{ cart.items.count }}</span></a></div>
+            <div class="cart"><a href="{% url 'cart' %}">КОРЗИНА <span id="cart_count"> {{ cart.get_products.quantity }}</span></a></div>
         </section>
     </header>
 </div>

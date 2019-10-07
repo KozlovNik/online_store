@@ -5,10 +5,11 @@
 {% block title %} Вход {% endblock %}
 
 {% block content %}
-        <h1 class="visually-hidden">Личный кабинет</h1>
-        <form method="post">
-            {% csrf_token %}
-            {{ form|crispy }}
-            <button type="submit" class="btn btn-primary">Войти</button>
-        </form>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.non_field_errors }}
+        {{ form.username }}
+        {{ form.password }}
+        <button type="submit" class="btn btn-primary">Войти</button>
+    </form>
 {% endblock %}

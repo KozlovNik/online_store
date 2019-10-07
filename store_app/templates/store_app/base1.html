@@ -18,10 +18,27 @@
 
     <link href="{% static 'css/1.css' %}" rel="stylesheet" type="text/css">
 </head>
-
 <body>
+{#{% if not user.is_authenticated %}#}
+<div id="modal-login"></div>
+<div class="popup-login-window" id="popup-login-window">
+    <div class="" id="flag"><div class="popup-login-window__close-button"></div></div>
+    <div class="popup-login-window__wrapper">
+        <p class="popup-login-window__title">АВТОРИЗАЦИЯ</p>
+        <form class="login-form" method="post">
+            {% csrf_token %}
+            <p class="login-form__errors"></p>
+            <p class="login-form__input" id="user-name">{{ form.username }}</p>
+            <p class="login-form__input" id="user-password">{{ form.password }}</p>
+            <p class="login-form__paragraph">Забыли пароль?</p>
+            <button type="submit" id="authenticate">Войти</button>
+            <p class="login-form__register"><a>Зарегистрироваться</a></p>
+        </form>
+    </div>
+</div>
+{#{% endif %}#}
 <header>
-<div class="upper-popup-window-hidden"></div>
+    <div class="upper-popup-window-hidden"></div>
     <div class="upper-popup-window">
         <div class="upper-popup-window__wrapper">
             <p class="upper-popup-window__text">Быстрая доставка по Москве.</p>
@@ -56,14 +73,14 @@
                         <ul class="user-list">
                             {% if user.is_authenticated %}
                                 <li class="user-list__item">
-                                    <a class="user-list__link user-list__item--log" href="{% url 'logout' %}">Выйти</a>
+                                    <a class="user-list__link user-list__item--log" href="{% url 'sign_out' %}">Выйти</a>
                                 </li>
                             {% else %}
                                 <li class="user-list__item user-list__item--log">
-                                    <a class="user-list__link" href="{% url 'login' %}">Вход</a>
+                                    <a id="login-button" class="user-list__link" href="">Вход</a>
                                 </li>
                                 <li class="user-list__item user-list__item--reg">
-                                    <a class="user-list__link" href="{% url 'login' %}">Регистрация</a>
+                                    <a class="user-list__link" href="{% url 'register' %}">Регистрация</a>
                                 </li>
                             {% endif %}
                         </ul>
@@ -80,8 +97,9 @@
                         <div class="cart-order__wrapper">
                             <div>
                                 <p class="cart__paragraph">Товаров: <span
-                                        id="cart_count">{{ cart.items.count }}</span></p>
-                                <p class="cart__paragraph">Сумма: {{ cart.cart_total }}</p>
+                                        id="cart_count">{{ cart.get_products_quantity }} шт.</span></p>
+                                <p class="cart__paragraph">Сумма: <span
+                                        id="cart-total-sum">{{ cart.cart_total }} руб.</span></p>
                             </div>
                             <p class="cart__order-button"><span class="">Оформить заказ</span></p>
                         </div>

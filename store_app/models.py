@@ -105,7 +105,7 @@ class Cart(models.Model):
         product = Product.objects.get(slug=slug)
         return product.category.slug
 
-    def update_total(self):
+    def update_total_price(self):
         self.cart_total = Decimal(0)
         for item in self.items.all():
             self.cart_total += item.item_total
@@ -115,6 +115,12 @@ class Cart(models.Model):
     def get_product_items(self):
         ls = [item.product.name for item in self.items.all()]
         return ls
+
+    def get_products_quantity(self):
+        quantity_of_products = 0
+        for item in self.items.all():
+            quantity_of_products += item.quantity
+        return quantity_of_products
 
 
 ORDER_STATUS_CHOICES = (
