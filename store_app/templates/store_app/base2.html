@@ -3,71 +3,160 @@
 <html lang="en">
 
 <head>
-
-
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    {% block javascript %}
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    {% endblock %}
     <meta name="description" content="">
     <meta name="author" content="">
+    <link href="https://fonts.googleapis.com/css?family=Oswald&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=PT+Sans:700&display=swap" rel="stylesheet">
-    <title>
-        {% block title %}Главная{% endblock %}
-    </title>
-
-    <!-- Bootstrap core CSS -->
-    {#    <link href="{% static 'bs/css/bootstrap.css' %}" rel="stylesheet">#}
+    <title>{% block title %} Главная {% endblock %}</title>
 
     <link href="{% static 'css/1.css' %}" rel="stylesheet" type="text/css">
 </head>
-
 <body>
-<div class="big-wrapper">
-    <header class="top-header">
-        <section class="top">
-            <img class="logo" src="{% static 'store_app/1.svg' %}" alt="" width="20px" height="20px">
-            <div class="cart"><a href="{% url 'cart' %}">КОРЗИНА <span id="cart_count"> {{ cart.get_products.quantity }}</span></a></div>
-        </section>
-    </header>
+{#{% if not user.is_authenticated %}#}
+<div id="modal-login"></div>
+<div class="popup-login-window" id="popup-login-window">
+    <div class="" id="flag"><div class="popup-login-window__close-button"></div></div>
+    <div class="popup-login-window__wrapper">
+        <p class="popup-login-window__title">АВТОРИЗАЦИЯ</p>
+        <form class="login-form" method="post">
+            {% csrf_token %}
+            <p class="login-form__errors"></p>
+            <p class="login-form__input" id="user-name">{{ form.username }}</p>
+            <p class="login-form__input" id="user-password">{{ form.password }}</p>
+            <p class="login-form__paragraph">Забыли пароль?</p>
+            <button type="submit" id="authenticate">Войти</button>
+            <p class="login-form__register"><a>Зарегистрироваться</a></p>
+        </form>
+    </div>
 </div>
-<div class="big-wrapper-2">
-    <div class="top-header">
-        <nav class="main-nav">
-            <ul class="main-nav__list">
-                <li class="main-nav__item">
-                    <a href="#" class="main-nav__link"><b>О нас</b></a>
+{#{% endif %}#}
+<header>
+    <div class="upper-popup-window-hidden"></div>
+    <div class="upper-popup-window">
+        <div class="upper-popup-window__wrapper">
+            <p class="upper-popup-window__text">Быстрая доставка по Москве.</p>
+            <span class="upper-popup-window__close-button"></span>
+        </div>
+    </div>
+    <div class="header-wrapper-outer">
+        <section class="header-upper-part">
+            <div class="header-upper-part__wrapper">
+                <div class="header-upper-part__left left-side">
+                    <div class="left-side__item">
+                        <p class="left-side__phone-number">+7 (800) 234 80 55</p>
+                        <p class="left-side__phone-number">+7 (800) 234 80 54</p>
+                        <p class="left-side__working-hours">09:00-21:00 пн-пт</p>
+                        <p class="left-side__working-hours">10:00-20:00 сб-вс</p>
+                    </div>
+                    <div class="left-side__item">
+                        <div class="left-side__delivery-wrapper">
+                            <img class="left-side__delivery-image" src="{% static 'store_app/delivery-logo.png' %}"
+                                 alt="">
+                            <div class="">
+                                <p class="left-side__delivery">Быстрая доставка</p>
+                                <p class="left-side__delivery">свежих продуктов</p>
+                                <p class="left-side__delivery">По Москве</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <img class="logo" src="{% static 'store_app/1.png' %}" alt="">
+                <div class="header-upper-part__right-side right-side">
+                    <div class="right-side__item">
+                        <ul class="user-list">
+                            {% if user.is_authenticated %}
+                                <li class="user-list__item">
+                                    <a class="user-list__link user-list__item--log" href="{% url 'sign_out' %}">Выйти</a>
+                                </li>
+                            {% else %}
+                                <li class="user-list__item user-list__item--log">
+                                    <a id="login-button" class="user-list__link" href="">Вход</a>
+                                </li>
+                                <li class="user-list__item user-list__item--reg">
+                                    <a class="user-list__link" href="{% url 'register' %}">Регистрация</a>
+                                </li>
+                            {% endif %}
+                        </ul>
+                        <p class="right-side__paragraph">Вы недавно смотрели</p>
+                        <p class="right-side__paragraph">Мои закладки</p>
+                    </div>
+                    <div class="right-side__item right-side__item--cart">
+                        <p class="cart">
+                            <a class="cart__link" href="{% url 'cart' %}">
+                                <img class="cart__image" src="{% static 'store_app/cart.png' %}" alt="">
+                                КОРЗИНА
+                            </a>
+                        </p>
+                        <div class="cart-order__wrapper">
+                            <div>
+                                <p class="cart__paragraph">Товаров: <span
+                                        id="cart_count">{{ cart.get_products_quantity }} шт.</span></p>
+                                <p class="cart__paragraph">Сумма: <span
+                                        id="cart-total-sum">{{ cart.cart_total }} руб.</span></p>
+                            </div>
+                            <p class="cart__order-button"><span class="">Оформить заказ</span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <nav class="header-lower-part">
+            <ul class="navbar">
+                <li class="navbar__item">
+                    <a href="#" class="navbar__link">О нас</a>
                 </li>
-                <li class="main-nav__item">
-                    <a href="#" class="main-nav__link"><b>Новости</b></a>
+                <li class="navbar__item">
+                    <a href="#" class="navbar__link">Новости</a>
                 </li>
-                <li class="main-nav__item">
-                    <a href="#" class="main-nav__link"><b>Акции</b></a>
+                <li class="navbar__item">
+                    <a href="#" class="navbar__link">Акции</a>
                 </li>
-                <li class="main-nav__item">
-                    <a href="#" class="main-nav__link"><b>Продукты</b></a>
+                <li class="navbar__item">
+                    <a href="{% url 'catalog' %}" class="navbar__link">Продукты</a>
                 </li>
-                <li class="main-nav__item">
-                    <a href="#" class="main-nav__link"><b>Статьи</b></a>
+                <li class="navbar__item">
+                    <a href="#" class="navbar__link">Статьи</a>
                 </li>
-                <li class="main-nav__item">
-                    <a href="#" class="main-nav__link"><b>Доставка и оплата</b></a>
+                <li class="navbar__item">
+                    <a href="#" class="navbar__link">Доставка и оплата</a>
                 </li>
-                <li class="main-nav__item">
-                    <a href="#" class="main-nav__link"><b>Контакты</b></a>
+                <li class="navbar__item">
+                    <a href="#" class="navbar__link">Контакты</a>
                 </li>
             </ul>
         </nav>
     </div>
-</div>
+</header>
 
 
 <main class="page-main">
-        {% block content %}
+    <nav class="sidebar">
+        <h3 class="sidebar__header">Категории</h3>
+        <ul class="sidebar__list">
+            {% for category in cats %}
+                <li class="sidebar__item">
+                    <a class="sidebar__link" href="{{ category.get_absolute_url }}">{{ category.name }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    </nav>
+    <div class="content">
 
+        {% block content %}
         {% endblock %}
+
+    </div>
 </main>
+
 </body>
+</html>
 {% block js %}
     <script src="{% static 'javascript/js.js' %}"></script>
 {% endblock %}

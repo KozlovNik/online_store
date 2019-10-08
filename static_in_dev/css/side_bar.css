@@ -1,0 +1,34 @@
+.sidebar {
+    width: 200px;
+}
+
+.sidebar__header {
+    color: rgba(0, 0, 0, 0.72);
+    font: 25px 'Lato', sans-serif;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.sidebar__list {
+    list-style: none;
+}
+
+.sidebar__item {
+    display: table;
+    width: 200px;
+}
+
+.sidebar__link {
+    padding: 0;
+    height: 25px;
+    display: table-cell;
+    text-decoration: none;
+    vertical-align: middle;
+    font: 16px 'Lato', sans-serif;
+    color: rgba(0, 0, 0, 0.72);
+    font-weight: bold;
+}
+
+.sidebar__link:hover {
+    color: #b2d235;
+}

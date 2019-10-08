@@ -41,6 +41,22 @@ def show_category(request, **kwargs):
     return render(request, 'store_app/products.html', context)
 
 
+def show_catalog(request, **kwargs):
+    form = UserLoginForm()
+    cart = get_or_create_cart(request)
+    products = Product.objects.all()
+    categories = Category.objects.all()
+    products_list = cart.get_product_items()
+    context = {
+        'categories': categories,
+        'products': products,
+        'cart': cart,
+        'form': form,
+        'products_list': products_list,
+    }
+    return render(request, 'store_app/catalog.html', context)
+
+
 def show_product(request, **kwargs):
     form = UserLoginForm()
     category = Category.objects.get(slug=kwargs['category_slug'])

@@ -119,7 +119,7 @@
                     <a href="#" class="navbar__link">Акции</a>
                 </li>
                 <li class="navbar__item">
-                    <a href="#" class="navbar__link">Продукты</a>
+                    <a href="{% url 'catalog' %}" class="navbar__link">Продукты</a>
                 </li>
                 <li class="navbar__item">
                     <a href="#" class="navbar__link">Статьи</a>
@@ -136,24 +136,13 @@
 </header>
 
 
-<main class="page-main">
-    <nav class="sidebar">
-        <h3 class="sidebar__header">Категории</h3>
-        <ul class="sidebar__list">
-            {% for category in cats %}
-                <li class="sidebar__item">
-                    <a class="sidebar__link" href="{{ category.get_absolute_url }}">{{ category.name }}</a>
-                </li>
-            {% endfor %}
-        </ul>
-    </nav>
-    <div class="content">
+{% block content %}
+    <main>
+        <div class="main-page-content-wrapper">
 
-        {% block content %}
-        {% endblock %}
-
-    </div>
-</main>
+        </div>
+    </main>
+{% endblock %}
 
 </body>
 </html>

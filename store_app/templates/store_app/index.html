@@ -1,4 +1,5 @@
 {% extends 'store_app/base1.html' %}
+{% load static %}
 
 {% block title %}
 
@@ -6,6 +7,26 @@
 
 
 {% block content %}
-    <div class="content">
-    </div>
+    <main class="main-page-content">
+        <div class="outer-image-wrapper">
+            <div class="image-carousel">
+                <div class="inner">
+                    <img src="{% static 'store_app/1.jpg' %}" alt="">
+                    <img src="{% static 'store_app/2.jpg' %}" alt="">
+                    <img src="{% static 'store_app/3.jpg' %}" alt="">
+                </div>
+                <div class="bubbles">
+                    <span class="bubble bubble__active"></span>
+                    <span class="bubble"></span>
+                    <span class="bubble"></span>
+                </div>
+                <div class="prev"></div>
+                <div class="next"></div>
+            </div>
+        </div>
+    </main>
+{% endblock %}
+{% block js %}
+    <script src="{% static 'javascript/js.js' %}"></script>
+    <script src="{% static 'javascript/slider.js' %}"></script>
 {% endblock %}
