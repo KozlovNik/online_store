@@ -3,22 +3,21 @@
 {% block javascript %}
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 {% endblock %}
-{% block title %}
+{% block title %} Каталог товаров {% endblock %}
 
-{% endblock %}
 {% block content %}
     {% include 'store_app/include_templates/products.html' %}
     <div class="pagination">
         <div class="step-links">
             {% for page_number in products.paginator.page_range %}
                 {% if products.number == page_number %}
-                    <a href="{% url 'cat' category_slug=category.slug%}?page={{ page_number }}" class="page__link page__link--active">
+                    <a href="{% url 'catalog' %}?page={{ page_number }}" class="page__link page__link--active">
                         <p class="page__item">
                             {{ page_number }}
                         </p>
                     </a>
                 {% elif page_number > products.number|add:-3 and page_number < products.number|add:3 %}
-                    <a href="{% url 'cat' category_slug=category.slug%}?page={{ page_number }}" class="page__link">
+                    <a href="{% url 'catalog' %}?page={{ page_number }}" class="page__link">
                         <p class="page__item">
                             {{ page_number }}
                         </p>
@@ -28,8 +27,6 @@
         </div>
     </div>
 {% endblock %}
-
-
 {% block js %}
     <script src="{% static 'javascript/js.js' %}"></script>
 {% endblock %}

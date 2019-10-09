@@ -1,0 +1,35 @@
+<div class="catalog-wrapper">
+        {% for product in products %}
+            <div class="product">
+                <div class="product__image-wrapper">
+                    <a href="#" class="product__image-link">
+                        <img src="{{ product.image.url }}" class="product__image" alt="">
+                    </a>
+                </div>
+                <div class="product__rating">
+                </div>
+
+                <div class="product__title">
+                    <a href="{{ product.get_absolute_url }}" class="product__title-link">
+                        {{ product.name }}
+                    </a>
+                </div>
+                <div class="product__price">
+                    <b>{{ product.price }} рублей</b>
+                </div>
+                <div class="add-to-cart-button">
+                    {% if product.name not in products_list %}
+                        <a id="{{ product.slug }}" class="add-to-cart" data-slug="{{ product.slug }}"
+                           href="{% url 'cart' %}">
+                            Добавить
+                        </a>
+                    {% else %}
+                        <a id="{{ product.slug }}" class="add-to-cart--added" href="{% url 'cart' %}">
+                            Перейти в корзину
+                        </a>
+                    {% endif %}
+                </div>
+            </div>
+
+        {% endfor %}
+    </div>

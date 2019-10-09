@@ -5,6 +5,7 @@ from .functions_for_views import get_or_create_cart, signup_authenticated_user
 from decimal import Decimal
 from .forms import UserLoginForm
 from django.contrib.auth import authenticate, logout
+from django.core.paginator import Paginator
 
 
 def index(request):
@@ -31,6 +32,10 @@ def show_category(request, **kwargs):
     except Category.DoesNotExist:
         raise Http404
     products = Product.custom_objects.all().filter(category=category)
+    print(list(products))
+    paginator = Paginator(products, 3)
+    page = request.GET.get('page')
+    products = paginator.get_page(page)
     context = {
         'category': category,
         'products': products,
@@ -45,6 +50,9 @@ def show_catalog(request, **kwargs):
     form = UserLoginForm()
     cart = get_or_create_cart(request)
     products = Product.objects.all()
+    paginator = Paginator(products, 3)
+    page = request.GET.get('page')
+    products = paginator.get_page(page)
     categories = Category.objects.all()
     products_list = cart.get_product_items()
     context = {
