@@ -7,6 +7,11 @@
 
 {% endblock %}
 {% block content %}
+    <div class="breadcrumbs">
+        <a class="breadcrumbs__item" href="{% url 'index' %}">Главная</a> >
+        <a class="breadcrumbs__item" href="{% url 'catalog' %}">Каталог</a> >
+        <span class="breadcrumbs__item--location">{{ category }}</span>
+    </div>
     {% include 'store_app/include_templates/products.html' %}
     {% if products.has_other_pages %}
         <div class="pagination">

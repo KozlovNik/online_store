@@ -1,0 +1,31 @@
+.pagination {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.page__item {
+    text-align: center;
+    text-decoration: none;
+}
+
+.page__link {
+    display: inline-block;
+    padding: 5px 10px;
+    text-align: center;
+    border: 1px solid rgb(132, 132, 132);
+    border-radius: 3px;
+    text-decoration: none;
+    font: 16px 'Arial', sans-serif;
+    color: rgb(132, 132, 132);
+}
+
+.page__link--active {
+    border: 1px solid rgb(219, 86, 87);
+    background-color: rgb(219, 86, 87);
+    color: white;
+}
+
+.page__link--disabled {
+    border: 1px solid rgb(205, 205, 205);
+    color: rgb(205, 205, 205);
+}

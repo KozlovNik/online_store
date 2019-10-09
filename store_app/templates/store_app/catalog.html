@@ -6,6 +6,10 @@
 {% block title %} Каталог товаров {% endblock %}
 
 {% block content %}
+    <div class="breadcrumbs">
+        <a class="breadcrumbs__item" href="{% url 'index' %}">Главная</a> >
+        <span class="breadcrumbs__item--location">Каталог</span>
+    </div>
     {% if products.has_other_pages %}
         {% include 'store_app/include_templates/products.html' %}
         <div class="pagination">

@@ -5,6 +5,7 @@
 @import url('slider.css');
 @import url('side_bar.css');
 @import url('cart.css');
+@import url('pagination.css');
 
 
 html {
@@ -13,41 +14,30 @@ html {
     margin-right: calc(-1 * (100vw - 100%));
 }
 
-.pagination {
-    text-align: center;
-    margin-top: 20px;
-}
-
-.page__item {
-    text-align: center;
-    text-decoration: none;
-}
-
-.page__link {
-    display: inline-block;
-    padding: 5px 10px;
-    text-align: center;
-    border: 1px solid rgb(132, 132, 132);
-    border-radius: 3px;
-    text-decoration: none;
-    font: 16px 'Arial', sans-serif;
-    color: rgb(132, 132, 132);
-}
-
-.page__link--active {
-    border: 1px solid rgb(219, 86, 87);
-    background-color: rgb(219, 86, 87);
-    color: white;
-}
-
-.page__link--disabled {
-    border: 1px solid rgb(205, 205, 205);
-    color: rgb(205, 205, 205);
-}
-
 .visually-hidden {
     font-size: 0;
     clip: rect(0, 0, 0, 0);
+}
+
+.breadcrumbs {
+    padding: 0 0 20px 40px;
+    font: 14px 'Lato';
+    color: #b4b4b4;
+    width: 100%;
+    overflow: hidden;
+}
+
+.breadcrumbs__item {
+    text-decoration: underline dotted;
+    color: #b4b4b4;
+}
+
+.breadcrumbs__item:hover {
+    color: #909090;
+}
+
+.breadcrumbs__item--location {
+
 }
 
 .page-main {
