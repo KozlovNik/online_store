@@ -32,13 +32,12 @@ def show_category(request, **kwargs):
     except Category.DoesNotExist:
         raise Http404
     products = Product.custom_objects.all().filter(category=category)
-    print(list(products))
     paginator = Paginator(products, 3)
     page = request.GET.get('page')
-    products = paginator.get_page(page)
+    products_object = paginator.get_page(page)
     context = {
         'category': category,
-        'products': products,
+        'products': products_object,
         'cart': cart,
         'products_list': products_list,
         'form': form,
@@ -52,12 +51,12 @@ def show_catalog(request, **kwargs):
     products = Product.objects.all()
     paginator = Paginator(products, 3)
     page = request.GET.get('page')
-    products = paginator.get_page(page)
+    products_object = paginator.get_page(page)
     categories = Category.objects.all()
     products_list = cart.get_product_items()
     context = {
         'categories': categories,
-        'products': products,
+        'products': products_object,
         'cart': cart,
         'form': form,
         'products_list': products_list,
