@@ -28,8 +28,8 @@
         <form class="login-form" method="post">
             {% csrf_token %}
             <p class="login-form__errors"></p>
-            <p class="login-form__input" id="user-name">{{ form.username }}</p>
-            <p class="login-form__input" id="user-password">{{ form.password }}</p>
+            <p class="login-form__input" id="user-name">{{ login_form.username }}</p>
+            <p class="login-form__input" id="user-password">{{ login_form.password }}</p>
             <p class="login-form__paragraph">Забыли пароль?</p>
             <button type="submit" id="authenticate">Войти</button>
             <p class="login-form__register"><a>Зарегистрироваться</a></p>

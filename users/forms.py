@@ -10,15 +10,13 @@ class UserRegisterForm(UserCreationForm):
         for item in ['email', 'password1', 'password2']:
             self.fields[item].help_text = None
 
-        self.fields['email'].label = 'dfh'
+        self.fields['email'].label = 'Адрес электронной почты'
+        self.fields['first_name'].label = 'Имя'
+        self.fields['last_name'].label = 'Фамилия'
         self.fields['password1'].label = 'Пароль'
         self.fields['password2'].label = 'Повторите пароль'
-        self.fields['gender'].label = 'П'
+        self.fields['gender'].label = 'Пол'
 
     class Meta:
         model = User
-        fields = ['email', 'password1', 'password2', 'gender']
-        labels = {
-            'email': '',
-            'message': ''
-        }
+        fields = ['email', 'password1', 'password2', 'first_name', 'last_name', 'gender']

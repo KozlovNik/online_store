@@ -1,0 +1,76 @@
+.make-order {
+    width: 100%;
+    /*background-color: rgba(20, 126, 42, 0.17);*/
+}
+
+.make-order__heading {
+    color: rgba(219, 86, 87, 0.72);
+    font: 25px 'Lato', sans-serif;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.make-order form {
+    border-top: 1px solid rgba(128, 128, 128, 0.21);
+    width: 100%;
+    display: block;
+    text-align: center;
+    padding-top: 20px;
+    margin-top: 40px;
+}
+
+.make-order form p {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.make-order form p input {
+    padding: 0 10px;
+    width: 250px;
+    height: 30px;
+    border: 1px solid rgba(128, 128, 128, 0.21);
+    border-radius: 5px;
+    font: 16px 'Century Gothic';
+}
+
+.make-order form p textarea {
+    padding: 10px;
+    border: 1px solid rgba(128, 128, 128, 0.21);
+    border-radius: 5px;
+    max-width: 400px;
+    min-width: 200px;
+    width: 250px;
+    min-height: 150px;
+    max-height: 250px;
+    font: 16px 'Century Gothic';
+}
+
+.make-order form p select {
+    width: 270px;
+    border-radius: 5px;
+    height: 30px;
+    font: 16px 'Century Gothic';
+    text-align: center;
+    border: 1px solid rgba(128, 128, 128, 0.21)
+}
+
+.make-order form p label {
+    font: 16px 'Century Gothic';
+    color: rgba(97, 97, 97, 0.79);
+    font-weight: 600;
+    padding-bottom: 5px;
+}
+
+.make-order__button {
+    margin: 10px;
+    cursor: pointer;
+    background-color: #db5657;
+    border: 0;
+    border-radius: 5px;
+    width: 250px;
+    height: 30px;
+    font: 16px 'Century Gothic';
+    color: white;
+}
+

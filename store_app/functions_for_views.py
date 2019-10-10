@@ -14,7 +14,6 @@ def get_or_create_cart(request):
         cart.save()
         cart_id = cart.id
         request.session['cart_id'] = cart_id
-        request.session['total'] = cart.items.count()
     return cart
 
 

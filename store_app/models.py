@@ -8,6 +8,8 @@ from decimal import Decimal
 from django.conf import settings
 
 
+
+
 class Category(models.Model):
     name = models.CharField(max_length=150, verbose_name='Категория', unique=True)
     slug = models.SlugField(verbose_name='Поле слага', unique=True, blank=True)
@@ -126,13 +128,23 @@ class Cart(models.Model):
 ORDER_STATUS_CHOICES = (
     ('Принят в обработку', 'Принят в обработку'),
     ('Выполняется', 'Выполняется'),
-    ('Принят в обработку', 'Принят в обработку')
+    ('Оплачен', 'Оплачен')
 )
 
 
 class Order(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    items = models.ManyToManyField(Cart)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, blank=True, null=True)
+    first_name = models.CharField(max_length=100)
+    last_name = models.CharField(max_length=100)
+    phone_number = models.CharField(max_length=20, blank=True, null=True)
+    cart = models.OneToOneField(Cart, on_delete=models.CASCADE)
+    date = models.DateTimeField(auto_now_add=True)
+    comments = models.TextField(blank=True, null=True)
+    buying_type = models.CharField(max_length=40,
+                                   choices=(('Самовывоз', 'Самовывоз'), ('Доставка', 'Доставка')),
+                                   default='Самовывоз')
+    address = models.CharField(max_length=250, blank=True)
+    status = models.CharField(max_length=100, choices=ORDER_STATUS_CHOICES)
 
 
 def pre_save_slug_field(sender, instance, *args, **kwargs):

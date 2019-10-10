@@ -41,6 +41,9 @@ class User(AbstractUser):
 
     username = None
     email = models.EmailField(_('email address'), unique=True)
+    first_name = models.CharField(max_length=100, default='')
+    last_name = models.CharField(max_length=100, default='')
+    phone_number = models.CharField(max_length=20, default='')
     GENDER_CHOICES = (
         ('М', 'Мужской'),
         ('Ж', 'Женский'),

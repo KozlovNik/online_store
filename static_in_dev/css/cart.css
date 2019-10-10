@@ -40,12 +40,6 @@
     width: 100%;
 }
 
-.make-order {
-    width: 40%;
-    min-height: 30px;
-    background-color: rgba(30, 126, 52, 0.33);
-}
-
 .customer-cart__remove-item {
     text-decoration: none;
     font-size: 12px;

@@ -5,6 +5,11 @@
 {% endblock %}
 
 {% block content %}
+    {% if cart.items.all %}
+        hello
+        {% else %}
+        bye
+    {% endif %}
     <main class="main-page-content">
         <div class="content-wrapper">
             <h2 class="cart__heading">Корзина</h2>
@@ -28,7 +33,8 @@
                                             <div class="cart-row__title">
                                                 {{ item.product.name }}
                                                 <p class="delete-bookmark-wrapper">
-                                                    <a class="remove-from-cart" data-slug="{{ item.product.slug }}" href="">Удалить</a> |
+                                                    <a class="remove-from-cart" data-slug="{{ item.product.slug }}"
+                                                       href="">Удалить</a> |
                                                     <a class="bookmarked" href="#">Добавить в избранное</a>
                                                 </p>
                                             </div>
@@ -53,13 +59,19 @@
                             <div class="cart-total-part">
                                 <div class="cart-total-part__item"></div>
                                 <div class="cart-total-part__item">Итого</div>
-                                <div class="cart-total-part__item" id="cart-total-price">{{ cart.cart_total }} руб.</div>
+                                <div class="cart-total-part__item" id="cart-total-price">{{ cart.cart_total }} руб.
+                                </div>
                             </div>
                         </div>
                     {% endif %}
                 </section>
                 <section class="make-order">
-
+                    <h3 class="make-order__heading">Оформление заказа</h3>
+                    <form method="post">
+                        {% csrf_token %}
+                        {{ order_form.as_p }}
+                        <input class="make-order__button" type="submit" name="checkout" value="Оформить заказ">
+                    </form>
                 </section>
             </div>
         </div>
