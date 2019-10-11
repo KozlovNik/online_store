@@ -5,6 +5,11 @@
     margin-bottom: 15px;
 }
 
+.cart__heading--empty-cart {
+    text-align: center;
+    padding-top: 40px;
+}
+
 .customer-cart-wrapper {
     width: 100%;
 }

@@ -34,10 +34,8 @@ $(function(){
 $(function(){
     $('.remove-from-cart').on('click', function (e) {
         e.preventDefault();
-        let product_slug = $(this).attr('data-slug');
-        let data = {
-            product_slug: product_slug
-        };
+        let product_slug = $(this).attr('data-slug'),
+            data = {product_slug: product_slug};
         $.ajax({
             type: "GET",
             url: "/remove_from_cart/",
@@ -49,6 +47,10 @@ $(function(){
                 $('#'+product_slug).remove();
                 if (data.cart_total === 0){
                     $('.cart__table').css('display', 'none');
+                    $('#content-wrapper').css('display', 'none');
+                    $('<p>', {text: 'Ваша корзина пуста',
+                              class: 'cart__heading cart__heading--empty-cart'
+                    }).appendTo('#page-main');
                 }
             },
         })
