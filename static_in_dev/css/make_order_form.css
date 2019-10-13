@@ -74,3 +74,10 @@
     color: white;
 }
 
+#id_address {
+    display: none;
+}
+
+label[for="id_address"] {
+    display: none;
+}

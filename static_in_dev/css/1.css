@@ -7,6 +7,7 @@
 @import url('cart.css');
 @import url('pagination.css');
 @import url('make_order_form.css');
+@import url('favorites.css');
 
 
 html {
@@ -57,7 +58,7 @@ html {
     width: 800px;
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-evenly;
+    justify-content: space-around;
 }
 
 
@@ -116,6 +117,11 @@ html {
 
 .add-to-cart-button {
     display: table;
+    width: 180px;
+}
+
+.add-to-cart-button__modified {
+    margin: 40px auto 0;
     width: 100%;
 }
 
@@ -143,12 +149,22 @@ html {
     background-color: #008b44;
 }
 
+.product-main {
+    width: 300px;
+}
+
+.product-main__wrapper {
+    padding: 10px;
+    border: 1px solid rgba(212, 212, 212, 0.62);
+    box-shadow: 0 3px 15px 0 rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+}
 
 .product-card {
     display: flex;
-    width: 1000px;
+    width: 100%;
     min-height: 300px;
-    background-color: #1e7e34;
+    justify-content: space-around;
 }
 
 .product-gallery__image {
@@ -158,18 +174,57 @@ html {
 
 
 .product-card__title {
-    margin: 20px;
+    color: #5b5b5b;
+    padding: 15px 0;
+    border-bottom: 1px solid #c6c6c6;
+    font: 18px 'Century Gothic';
+    font-weight: bold;
 }
 
-.product-buy {
+.product-card__price-wrapper {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 0;
+    border-bottom: 1px solid #c6c6c6;
 }
 
 .product-buy__price {
     font-weight: bold;
     font-size: 25px;
     font-family: 'PT Sans', sans-serif;
+}
+
+.add-to-favorites {
+    cursor: pointer;
+    position: relative;
+    font: 12px 'Century Gothic';
+    color: #c3c3c3;
+    text-decoration: underline dotted #c3c3c3;
+    padding-left: 20px;
+}
+
+.add-to-favorites:before {
+    left: 0;
+    top: 0;
+    position: absolute;
+    content: "";
+    width: 20px;
+    height: 20px;
+    background: url('../heart.svg') no-repeat;
+}
+
+.add-to-favorites--active:before {
+    background: url('../heart-fill.svg') no-repeat;
+}
+
+.add-to-favorites:hover {
+    color: #7f7f7f;
+}
+
+.product-card__text {
+    font: 14px 'Lato', sans-serif;
+    margin: 15px 0;
 }
 
 .product-card__buy-button {

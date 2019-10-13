@@ -1,4 +1,5 @@
-{% extends 'store_app/base2.html' %}
+{% extends 'store_app/base1.html' %}
+{% load static %}
 
 {% block title %}
     product.name
@@ -6,22 +7,57 @@
 
 
 {% block content %}
-    <div class="product-card">
-        <div class="product-card__gallery product-gallery">
-            <img class="product-gallery__image" src="{{ product.image.url }}" alt="">
+    <div class="content-wrapper">
+        <div class="breadcrumbs">
+            <a class="breadcrumbs__item" href="{% url 'index' %}">Главная</a> >
+            <a class="breadcrumbs__item" href="{% url 'catalog' %}">Каталог</a> >
+            <a class="breadcrumbs__item" href="{{ category.get_absolute_url }}">{{ category }}</a> >
+            <span class="breadcrumbs__item--location">{{ product }}</span>
         </div>
-    <div class="product-main">
-        <div class="product-card__title">
-            <h1>{{ product.name }}</h1>
-        </div>
-        <div class="product-card__product-buy product-buy">
-            <div class="product-buy__price">
-                {{ product.price }} рублей
+        <div class="product-card">
+            <div class="product-card__gallery product-gallery">
+                <img class="product-gallery__image" src="{{ product.image.url }}" alt="">
             </div>
-            <div class="product-card__buy-button-wrapper">
-                <button href='' class="product-card__buy-button">Купить</button>
+            <div class="product-main">
+                <div class="product-main__wrapper">
+                    <div class="product-card__title">
+                        <h1>{{ product.name }}</h1>
+                        <a id="add-to-favorites" data-slug-fav="{{ product.slug }}"
+                           class="add-to-favorites{% if product in user_favorites_products %} add-to-favorites--active{% endif %}">
+                            Добавить в избранное</a>
+                    </div>
+                    <div class="product-card__product-buy product-buy">
+                        <div class="product-card__price-wrapper">
+                            <p class="product-buy__price">{{ product.price }} руб.</p>
+                            {% if product.available %}
+                                <p class="product-buy__available">В наличии</p>
+                            {% else %}
+                                <p class="product-buy__available">Нет в наличии</p>
+                            {% endif %}
+                        </div>
+                        <div class="product-card__text">
+                            <p>Доставка в г. Москва:</p>
+                            <p>Самовывоз — бесплатно</p>
+                            <p>Курьерская доставка — от 249 руб.</p>
+                        </div>
+                        <div class="add-to-cart-button add-to-cart-button__modified">
+                            {% if product.name not in products_list %}
+                                <a id="{{ product.slug }}" class="add-to-cart" data-slug="{{ product.slug }}"
+                                   href="{% url 'cart' %}">
+                                    Добавить
+                                </a>
+                            {% else %}
+                                <a id="{{ product.slug }}" class="add-to-cart--added" href="{% url 'cart' %}">
+                                    Перейти в корзину
+                                </a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-     </div>
+{% endblock %}
+{% block js %}
+    <script src="{% static 'javascript/js.js' %}"></script>
 {% endblock %}

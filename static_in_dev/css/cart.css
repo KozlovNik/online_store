@@ -72,6 +72,15 @@
     word-wrap: break-word;
 }
 
+.cart-row__name {
+    text-decoration: none;
+    color: #434343;
+}
+
+.cart-row__name:hover {
+    color: #db5657;
+}
+
 .cart-row__left-side {
     flex: 1;
     display: flex;

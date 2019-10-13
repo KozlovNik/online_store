@@ -3,6 +3,7 @@ from django.contrib import messages
 from .forms import UserRegisterForm
 from store_app.forms import UserLoginForm
 from store_app.functions_for_views import get_or_create_cart, signup_authenticated_user
+from django.contrib.auth import logout
 
 
 def register(request):
@@ -15,7 +16,7 @@ def register(request):
             register_form.save()
             email = register_form.cleaned_data['email']
             messages.success(request, 'Аккаунт {} был успешно создан'.format(email))
-            return redirect('index')
+            return redirect('catalog')
     else:
         register_form = UserRegisterForm()
     context = {
@@ -24,3 +25,8 @@ def register(request):
         'login_form': login_form
     }
     return render(request, 'users/register.html', context)
+
+
+def sign_out(request):
+    logout(request)
+    return redirect('catalog')

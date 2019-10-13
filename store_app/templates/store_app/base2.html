@@ -27,12 +27,12 @@
         <p class="popup-login-window__title">АВТОРИЗАЦИЯ</p>
         <form class="login-form" method="post">
             {% csrf_token %}
-            <p class="login-form__errors"></p>
+            <p class="login-form__errors" id="login-form__errors"></p>
             <p class="login-form__input" id="user-name">{{ login_form.username }}</p>
             <p class="login-form__input" id="user-password">{{ login_form.password }}</p>
             <p class="login-form__paragraph">Забыли пароль?</p>
             <button type="submit" id="authenticate">Войти</button>
-            <p class="login-form__register"><a>Зарегистрироваться</a></p>
+            <p class="login-form__register"><a href="{% url 'register' %}" class="login-form__register-link">Регистрация</a></p>
         </form>
     </div>
 </div>
@@ -84,8 +84,8 @@
                                 </li>
                             {% endif %}
                         </ul>
-                        <p class="right-side__paragraph">Вы недавно смотрели</p>
-                        <p class="right-side__paragraph">Мои закладки</p>
+                        <a href="#" class="right-side__link">Вы недавно смотрели</a>
+                        <a href="{% url 'favorites' %}" class="right-side__link">Мои закладки: (<span id="favorites-quantity">{{ user_favorites_quantity }}</span>)</a>
                     </div>
                     <div class="right-side__item right-side__item--cart">
                         <p class="cart">
@@ -97,11 +97,11 @@
                         <div class="cart-order__wrapper">
                             <div>
                                 <p class="cart__paragraph">Товаров: <span
-                                        id="cart_count">{{ cart.get_products_quantity }} шт.</span></p>
+                                        id="cart_count">{{ cart.get_products_quantity }}</span> шт.</p>
                                 <p class="cart__paragraph">Сумма: <span
-                                        id="cart-total-sum">{{ cart.cart_total }} руб.</span></p>
+                                        id="cart-total-sum">{{ cart.cart_total }}</span> руб.</p>
                             </div>
-                            <p class="cart__order-button"><span class="">Оформить заказ</span></p>
+                            <p id="cart__order-button" class="cart__order-button"><span class="">Оформить заказ</span></p>
                         </div>
                     </div>
                 </div>

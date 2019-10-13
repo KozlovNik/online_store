@@ -53,7 +53,7 @@
     text-align: center;
     font: 12px 'Lato', sans-serif;
     line-height: 15px;
-    height: 15px;
+    min-height: 15px;
     padding-top: 5px;
     font-weight: 300;
     color: #990000;
@@ -84,7 +84,8 @@
 }
 
 .login-form__register {
-    display: flex;
+    display: table;
+    text-align: center;
     border-radius: 5px;
     font-size: 16px;
     font-weight: 800;
@@ -96,7 +97,14 @@
     background-color: rgba(81, 83, 77, 0.21);
     cursor: pointer;
     align-items: center;
-    text-align: center;
+}
+
+.login-form__register-link {
+    vertical-align: middle;
+    display: table-cell;
+    height: 100%;
+    text-decoration: none;
+    color: white;
 }
 
 .login-form__register a {

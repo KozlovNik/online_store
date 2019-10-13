@@ -33,4 +33,4 @@ class RegisteredUserOrderForm(forms.ModelForm):
 
     class Meta:
         model = Order
-        fields = ('address', 'buying_type', 'comments')
+        fields = ('buying_type', 'address', 'comments')

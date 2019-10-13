@@ -6,6 +6,7 @@ from django.urls import reverse
 from .managers import CustomProductManager
 from decimal import Decimal
 from django.conf import settings
+from users.models import User
 
 
 
@@ -50,6 +51,7 @@ class Product(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE, verbose_name='Категория', related_name='products')
     brand = models.ForeignKey(Brand, on_delete=models.CASCADE, verbose_name='Бренд', blank=True, null=True)
     available = models.BooleanField(default=True, verbose_name='Наличие товара')
+    users = models.ManyToManyField(User, blank=True, related_name='products')
     custom_objects = CustomProductManager()
     objects = models.Manager()
 

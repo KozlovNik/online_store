@@ -106,9 +106,17 @@
     width: 370px;
 }
 
-.right-side__paragraph {
+.right-side__link {
+    color: #616161;
+    display: block;
+    text-decoration: underline dotted #616161;
     font: 14px 'Century Gothic';
     padding-top: 5px;
+}
+
+.right-side__link:hover {
+    color: rgba(255, 67, 54, 0.98);
+    text-decoration: underline dotted rgba(255, 67, 54, 0.98);
 }
 
 .right-side__item {
@@ -220,6 +228,7 @@
 }
 
 .cart__order-button {
+    display: none;
     text-align: center;
     font: 12px 'Century Gothic';
     color: white;
