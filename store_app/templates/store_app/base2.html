@@ -85,7 +85,7 @@
                             {% endif %}
                         </ul>
                         <a href="#" class="right-side__link">Вы недавно смотрели</a>
-                        <a href="{% url 'favorites' %}" class="right-side__link">Мои закладки: (<span id="favorites-quantity">{{ user_favorites_quantity }}</span>)</a>
+                        <a href="{% url 'favorites' %}" id="my-favorites" class="right-side__link">Мои закладки: (<span id="favorites-quantity">{{ user_favorites_quantity }}</span>)</a>
                     </div>
                     <div class="right-side__item right-side__item--cart">
                         <p class="cart">

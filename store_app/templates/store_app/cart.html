@@ -28,13 +28,20 @@
                                                          alt="">
                                                 </div>
                                                 <div class="cart-row__title">
-                                                    <a class="cart-row__name" href="{% url 'product' category_slug=item.product.category.slug product_slug=item.product.slug %}">
+                                                    <a class="cart-row__name"
+                                                       href="{% url 'product' category_slug=item.product.category.slug product_slug=item.product.slug %}">
                                                         {{ item.product.name }}
                                                     </a>
                                                     <p class="delete-bookmark-wrapper">
                                                         <a class="remove-from-cart" data-slug="{{ item.product.slug }}"
                                                            href="">Удалить</a> |
-                                                        <a class="bookmarked" href="#">Добавить в избранное</a>
+                                                        <a href="" class="bookmarked" data-slug="{{ item.product.slug }}">
+                                                            {% if item.product in user_favorites_products %}
+                                                                Товар в закладках
+                                                            {% else %}
+                                                                Добавить в закладки
+                                                            {% endif %}
+                                                        </a>
                                                     </p>
                                                 </div>
                                             </div>

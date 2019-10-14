@@ -61,7 +61,7 @@ $(function () {
 // Функция обновляет количество определенного товара и общую сумму данного товара в корзине,
 // а также общее количество товаров и общую сумму товаров
 $(function () {
-    $('.cart-item-quantity').on('click', function (e) {
+    $('.cart-item-quantity').on('click', function () {
         let quantity = $(this).val();
         let item_id = $(this).attr('data-id');
         let data = {
@@ -150,7 +150,7 @@ $(function () {
 
 
 $(function () {
-    $('#add-to-favorites').on('click', function (e) {
+    $('#add-to-favorites').on('click', function () {
         let addToFavoritesButton = $(this),
             slug = $(this).attr('data-slug-fav'),
             favoritesQuantity = $('#favorites-quantity'),
@@ -174,6 +174,59 @@ $(function () {
                     $('#modal-login').css('display', 'block');
                     $('#popup-login-window').css('display', 'block');
                     $('#login-form__errors').html('Чтобы добавлять товары в закладки, необходимо авторизироваться')
+                }
+            }
+        })
+    })
+});
+
+$(function () {
+    $('.bookmarked').on('click', function (event) {
+        event.preventDefault();
+        let bookmarked = $(this),
+            slug = $(this).attr('data-slug'),
+            favoritesQuantity = $('#favorites-quantity'),
+            data = {
+                slug: slug,
+            };
+
+        $.ajax({
+            type: 'GET',
+            url: '/add_to_favorites/',
+            data: data,
+            success: function (data) {
+                console.log(data.response);
+                if (data.user_authenticated === true) {
+                    favoritesQuantity.html(data.quantity_of_favorites);
+                    if (data.response === true) {
+                        bookmarked.html('Товар в закладках');
+                    } else if (data.response === false) {
+                        bookmarked.html('Добавить в закладки');
+                    }
+                } else {
+                    $('#modal-login').css('display', 'block');
+                    $('#popup-login-window').css('display', 'block');
+                    $('#login-form__errors').html('Чтобы добавлять товары в закладки, необходимо авторизироваться')
+                }
+            }
+        })
+    })
+});
+
+$(function () {
+    $('#my-favorites').on('click', function (event) {
+        let href = $(this).attr('href');
+        event.preventDefault();
+        $.ajax({
+            type: 'GET',
+            url: '/is_authenticated/',
+            success: function (data) {
+                if (data.is_authenticated){
+                    window.location = href
+                } else {
+                    $('#modal-login').css('display', 'block');
+                    $('#popup-login-window').css('display', 'block');
+                    $('#login-form__errors').html('Чтобы просматривать товары в закладках, необходимо авторизироваться')
                 }
             }
         })

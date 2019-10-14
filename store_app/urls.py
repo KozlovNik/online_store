@@ -10,6 +10,7 @@ urlpatterns = [
     path('change_item_quantity/', views.change_item_quantity, name='change_quantity'),
     path('catalog/', views.show_catalog, name='catalog'),
     path('favorites/', views.show_favorites, name='favorites'),
+    path('is_authenticated/', views.is_user_authenticated, name='is_authenticated'),
     path('add_to_favorites/', views.add_to_favorites, name='add_to_favorites'),
     path('authenticate_user/', views.authenticate_user, name='authenticate_user'),
     path('catalog/<category_slug>/', views.show_category, name='cat'),

@@ -115,6 +115,7 @@ def cart_view(request, **kwargs):
     login_form = UserLoginForm()
     signup_authenticated_user(request)
     cart = get_or_create_cart(request)
+    user_favorites_products = Product.objects.filter(users=request.user)
     try:
         user_favorites_quantity = len(Product.objects.filter(users=request.user).all())
     except TypeError:
@@ -147,7 +148,8 @@ def cart_view(request, **kwargs):
         'cart': cart,
         'login_form': login_form,
         'order_form': order_form,
-        'user_favorites_quantity': user_favorites_quantity
+        'user_favorites_quantity': user_favorites_quantity,
+        'user_favorites_products': user_favorites_products,
     }
     return render(request, 'store_app/cart.html', context)
 
@@ -224,7 +226,6 @@ def add_to_favorites(request):
         return JsonResponse({'user_authenticated': user_authenticated})
 
 
-
 @login_required
 def show_favorites(request):
     login_form = UserLoginForm()
@@ -244,3 +245,7 @@ def show_favorites(request):
         'user_favorites_quantity': user_favorites_quantity,
     }
     return render(request, 'store_app/favorites.html', context)
+
+
+def is_user_authenticated(request):
+    return JsonResponse({'is_authenticated': request.user.is_authenticated})
