@@ -169,6 +169,10 @@
     font-weight: 500;
 }
 
+.navbar__link--active {
+    color: #779750;
+}
+
 .navbar__link:hover {
     color: #779750;
     transition-delay: 0.1s;

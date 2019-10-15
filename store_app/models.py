@@ -9,8 +9,6 @@ from django.conf import settings
 from users.models import User
 
 
-
-
 class Category(models.Model):
     name = models.CharField(max_length=150, verbose_name='Категория', unique=True)
     slug = models.SlugField(verbose_name='Поле слага', unique=True, blank=True)
@@ -85,8 +83,8 @@ class Cart(models.Model):
     def __str__(self):
         return str(self.id)
 
-    def add_to_cart(self, slug):
-        product = Product.objects.get(slug=slug)
+    def add_to_cart(self, product_slug):
+        product = Product.objects.get(slug=product_slug)
         for item in self.items.all():
             if item.product.name == product.name:
                 return
@@ -95,8 +93,8 @@ class Cart(models.Model):
         self.items.add(new_item)
         self.save()
 
-    def remove_from_cart(self, slug):
-        product = Product.objects.get(slug=slug)
+    def remove_from_cart(self, product_slug):
+        product = Product.objects.get(slug=product_slug)
         for cart_item in self.items.all():
             if cart_item.product.name == product.name:
                 self.items.remove(cart_item)
@@ -104,9 +102,10 @@ class Cart(models.Model):
                 cart_item.delete()
                 return
 
+
     @staticmethod
-    def get_category(slug):
-        product = Product.objects.get(slug=slug)
+    def get_category(product_slug):
+        product = Product.objects.get(slug=product_slug)
         return product.category.slug
 
     def update_total_price(self):

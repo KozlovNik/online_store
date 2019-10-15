@@ -1,45 +1,30 @@
 from django.shortcuts import render, HttpResponseRedirect
 from store_app.models import Product, Category
 from django.http import Http404, JsonResponse
-from .functions_for_views import get_or_create_cart, signup_authenticated_user
+from .functions_for_views import get_or_create_cart
 from decimal import Decimal
 from .forms import UserLoginForm
 from django.contrib.auth import authenticate
 from django.core.paginator import Paginator
 from .forms import OrderForm, RegisteredUserOrderForm
-from users.models import User
 from django.contrib.auth.decorators import login_required
 
 
 def index(request):
-    login_form = UserLoginForm()
-    signup_authenticated_user(request)
     products = Product.objects.all()
     cart = get_or_create_cart(request)
     products_list = cart.get_product_items()
-    try:
-        user_favorites_quantity = len(Product.objects.filter(users=request.user).all())
-    except TypeError:
-        user_favorites_quantity = 0
     context = {
         'products': products,
         'cart': cart,
         'products_list': products_list,
-        'login_form': login_form,
-        'user_favorites_quantity': user_favorites_quantity,
     }
     return render(request, 'store_app/index.html', context)
 
 
 def show_category(request, **kwargs):
-    login_form = UserLoginForm()
-    signup_authenticated_user(request)
     cart = get_or_create_cart(request)
     products_list = cart.get_product_items()
-    try:
-        user_favorites_quantity = len(Product.objects.filter(users=request.user).all())
-    except TypeError:
-        user_favorites_quantity = 0
     try:
         category = Category.objects.get(slug=kwargs['category_slug'])
     except Category.DoesNotExist:
@@ -53,40 +38,26 @@ def show_category(request, **kwargs):
         'products': products_object,
         'cart': cart,
         'products_list': products_list,
-        'login_form': login_form,
-        'user_favorites_quantity': user_favorites_quantity
     }
     return render(request, 'store_app/products.html', context)
 
 
 def show_catalog(request, **kwargs):
-    login_form = UserLoginForm()
-    signup_authenticated_user(request)
     cart = get_or_create_cart(request)
     products = Product.objects.all()
     paginator = Paginator(products, 3)
     page = request.GET.get('page')
     products_object = paginator.get_page(page)
-    categories = Category.objects.all()
     products_list = cart.get_product_items()
-    try:
-        user_favorites_quantity = len(Product.objects.filter(users=request.user).all())
-    except TypeError:
-        user_favorites_quantity = 0
     context = {
-        'categories': categories,
         'products': products_object,
         'cart': cart,
-        'login_form': login_form,
         'products_list': products_list,
-        'user_favorites_quantity': user_favorites_quantity,
     }
     return render(request, 'store_app/catalog.html', context)
 
 
 def show_product(request, **kwargs):
-    login_form = UserLoginForm()
-    signup_authenticated_user(request)
     cart = get_or_create_cart(request)
     category = Category.objects.get(slug=kwargs['category_slug'])
     product = Product.objects.get(slug=kwargs['product_slug'])
@@ -95,31 +66,22 @@ def show_product(request, **kwargs):
         user_favorites_products = Product.objects.filter(users=request.user)
     except TypeError:
         user_favorites_products = None
-    try:
-        user_favorites_quantity = len(Product.objects.filter(users=request.user).all())
-    except TypeError:
-        user_favorites_quantity = 0
     context = {
         'category': category,
         'product': product,
-        'login_form': login_form,
         'cart': cart,
         'products_list': products_list,
-        'user_favorites_quantity': user_favorites_quantity,
         'user_favorites_products': user_favorites_products,
     }
     return render(request, 'store_app/product.html', context)
 
 
 def cart_view(request, **kwargs):
-    login_form = UserLoginForm()
-    signup_authenticated_user(request)
     cart = get_or_create_cart(request)
-    user_favorites_products = Product.objects.filter(users=request.user)
     try:
-        user_favorites_quantity = len(Product.objects.filter(users=request.user).all())
+        user_favorites_products = Product.objects.filter(users=request.user)
     except TypeError:
-        user_favorites_quantity = 0
+        user_favorites_products = None
     if request.method == 'POST' and 'checkout' in request.POST:
         if request.user.is_authenticated:
             order_form = RegisteredUserOrderForm(request.POST)
@@ -146,9 +108,7 @@ def cart_view(request, **kwargs):
 
     context = {
         'cart': cart,
-        'login_form': login_form,
         'order_form': order_form,
-        'user_favorites_quantity': user_favorites_quantity,
         'user_favorites_products': user_favorites_products,
     }
     return render(request, 'store_app/cart.html', context)
@@ -228,24 +188,24 @@ def add_to_favorites(request):
 
 @login_required
 def show_favorites(request):
-    login_form = UserLoginForm()
-    signup_authenticated_user(request)
     cart = get_or_create_cart(request)
     products_list = cart.get_product_items()
     user_favorites_products = Product.objects.filter(users=request.user)
-    try:
-        user_favorites_quantity = len(Product.objects.filter(users=request.user).all())
-    except TypeError:
-        user_favorites_quantity = 0
     context = {
-        'login_form': login_form,
         'cart': cart,
         'products_list': products_list,
         'user_favorites_products': user_favorites_products,
-        'user_favorites_quantity': user_favorites_quantity,
     }
     return render(request, 'store_app/favorites.html', context)
 
 
 def is_user_authenticated(request):
     return JsonResponse({'is_authenticated': request.user.is_authenticated})
+
+
+def show_contacts(request):
+    cart = get_or_create_cart(request)
+    context = {
+        'cart': cart,
+    }
+    return render(request, 'store_app/contacts.html', context)
