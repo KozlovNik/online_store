@@ -6,16 +6,31 @@
 
 {% block content %}
     <main class="main-page-content" id="page-main">
-    <div id="content-wrapper" class="content-wrapper">
-        <h2 class="favorites__heading">Ваши закладки</h2>
-        <div class="content-wrapper-inner">
-            {% for product in user_favorites_products %}
-                <p>{{ product.name }}</p>
-            {% endfor %}
+        <div id="content-wrapper" class="content-wrapper">
+            <h2 class="favorites__heading">Ваши закладки</h2>
+            <div class="favorites-product">
+                <div class="favorites-product__heading-wrapper">
+                    <p class="favorite-product__heading-item favorite-product__item--name">Наименование</p>
+                    <p class="favorite-product__heading-item favorite-product__item--price">Цена</p>
+                    <p class="favorite-product__heading-item favorite-product__item--action">Действие</p>
+                </div>
+                {% for product in user_favorites_products %}
+                    <div class="favorite-product">
+                        <a href="{{ product.get_absolute_url }}" class="favorite-product__item favorite-product__item--name favorite-product__item--name-link">{{ product.name }}</a>
+                        <p class="favorite-product__item favorite-product__item--price"><span>{{ product.price }}</span> руб.</p>
+{#                        <form method="post">#}
+{#                            {% csrf_token %}#}
+{#                            <a class="">Удалить</a>#}
+{#                            <input class="favorite-product__item favorite-product__item--action" type="submit" name="delete-favorites" value="Удалить">#}
+{#                        </form>#}
+                    <a href="{% url 'delete_from_favorites' product_slug=product.slug %}" class="favorite-product__item favorite-product__item--action">Удалить</a>
+                    </div>
+                {% endfor %}
+            </div>
         </div>
-    </div>
     </main>
 {% endblock %}
 {% block js %}
     <script src="{% static 'javascript/js.js' %}"></script>
+    <script src="{% static 'javascript/favorites.js' %}"></script>
 {% endblock %}

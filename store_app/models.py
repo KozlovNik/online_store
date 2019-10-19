@@ -3,7 +3,7 @@ from django.db.models.signals import pre_save
 from django.utils.text import slugify
 from transliterate import translit
 from django.urls import reverse
-from .managers import CustomProductManager
+from .managers import CustomProductManager, CartManager
 from decimal import Decimal
 from django.conf import settings
 from users.models import User
@@ -79,6 +79,7 @@ class CartItem(models.Model):
 class Cart(models.Model):
     items = models.ManyToManyField(CartItem, blank=True)
     cart_total = models.DecimalField(max_digits=9, decimal_places=2, default=0.00)
+    objects = CartManager()
 
     def __str__(self):
         return str(self.id)
@@ -101,7 +102,6 @@ class Cart(models.Model):
                 self.save()
                 cart_item.delete()
                 return
-
 
     @staticmethod
     def get_category(product_slug):

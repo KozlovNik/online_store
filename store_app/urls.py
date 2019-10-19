@@ -15,5 +15,6 @@ urlpatterns = [
     path('authenticate_user/', views.authenticate_user, name='authenticate_user'),
     path('catalog/<category_slug>/', views.show_category, name='cat'),
     path('catalog/<category_slug>/<product_slug>/', views.show_product, name='product'),
-    path('contacts/', views.show_contacts , name='contacts'),
+    path('contacts/', views.show_contacts, name='contacts'),
+    path('delete_from_favorites/<product_slug>/', views.delete_from_favorites, name='delete_from_favorites')
 ]

@@ -1,17 +1,6 @@
-from .models import Cart
 from .forms import UserLoginForm
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponseRedirect
-
-
-def get_or_create_cart(request):
-    try:
-        cart = Cart.objects.get(id=request.session['cart_id'])
-    except (Cart.DoesNotExist, KeyError):
-        cart = Cart()
-        cart.save()
-        request.session['cart_id'] = cart.id
-    return cart
 
 
 def signup_authenticated_user(request):

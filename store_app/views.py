@@ -1,34 +1,30 @@
-from django.shortcuts import render, HttpResponseRedirect
-from store_app.models import Product, Category
-from django.http import Http404, JsonResponse
-from .functions_for_views import get_or_create_cart
+from django.shortcuts import render, HttpResponseRedirect, get_object_or_404
+from store_app.models import Product, Category, Cart
+from django.http import JsonResponse
 from decimal import Decimal
 from .forms import UserLoginForm
 from django.contrib.auth import authenticate
 from django.core.paginator import Paginator
 from .forms import OrderForm, RegisteredUserOrderForm
 from django.contrib.auth.decorators import login_required
+from django.urls import reverse
 
 
 def index(request):
+    print(request.session['cart_id'])
+    cart = Cart.objects.get_or_create_cart(request)
     products = Product.objects.all()
-    cart = get_or_create_cart(request)
-    products_list = cart.get_product_items()
     context = {
         'products': products,
         'cart': cart,
-        'products_list': products_list,
     }
     return render(request, 'store_app/index.html', context)
 
 
 def show_category(request, **kwargs):
-    cart = get_or_create_cart(request)
+    cart = Cart.objects.get_or_create_cart(request)
     products_list = cart.get_product_items()
-    try:
-        category = Category.objects.get(slug=kwargs['category_slug'])
-    except Category.DoesNotExist:
-        raise Http404
+    category = get_object_or_404(Category, slug=kwargs['category_slug'])
     products = Product.custom_objects.all().filter(category=category)
     paginator = Paginator(products, 3)
     page = request.GET.get('page')
@@ -43,7 +39,7 @@ def show_category(request, **kwargs):
 
 
 def show_catalog(request, **kwargs):
-    cart = get_or_create_cart(request)
+    cart = Cart.objects.get_or_create_cart(request)
     products = Product.objects.all()
     paginator = Paginator(products, 3)
     page = request.GET.get('page')
@@ -58,14 +54,11 @@ def show_catalog(request, **kwargs):
 
 
 def show_product(request, **kwargs):
-    cart = get_or_create_cart(request)
+    cart = Cart.objects.get_or_create_cart(request)
     category = Category.objects.get(slug=kwargs['category_slug'])
     product = Product.objects.get(slug=kwargs['product_slug'])
     products_list = cart.get_product_items()
-    try:
-        user_favorites_products = Product.objects.filter(users=request.user)
-    except TypeError:
-        user_favorites_products = None
+    user_favorites_products = Product.custom_objects.get_favorites_or_none(request.user)
     context = {
         'category': category,
         'product': product,
@@ -77,11 +70,9 @@ def show_product(request, **kwargs):
 
 
 def cart_view(request, **kwargs):
-    cart = get_or_create_cart(request)
-    try:
-        user_favorites_products = Product.objects.filter(users=request.user)
-    except TypeError:
-        user_favorites_products = None
+    print(request.COOKIES)
+    cart = Cart.objects.get_or_create_cart(request)
+    user_favorites_products = Product.custom_objects.get_favorites_or_none(request.user)
     if request.method == 'POST' and 'checkout' in request.POST:
         if request.user.is_authenticated:
             order_form = RegisteredUserOrderForm(request.POST)
@@ -105,7 +96,6 @@ def cart_view(request, **kwargs):
         order_form = RegisteredUserOrderForm()
     else:
         order_form = OrderForm()
-
     context = {
         'cart': cart,
         'order_form': order_form,
@@ -115,9 +105,9 @@ def cart_view(request, **kwargs):
 
 
 def add_to_cart_view(request):
-    cart = get_or_create_cart(request)
-    slug = request.GET['product_slug']
-    cart.add_to_cart(slug)
+    cart = Cart.objects.get_or_create_cart(request)
+    product_slug = request.GET['product_slug']
+    cart.add_to_cart(product_slug)
     cart.total_quantity = cart.get_products_quantity()
     cart_total_sum = cart.update_total_price()
     return JsonResponse({'cart_total': cart.total_quantity,
@@ -126,9 +116,9 @@ def add_to_cart_view(request):
 
 
 def remove_from_cart_view(request):
-    cart = get_or_create_cart(request)
-    slug = request.GET['product_slug']
-    cart.remove_from_cart(slug)
+    cart = Cart.objects.get_or_create_cart(request)
+    product = request.GET['product_slug']
+    cart.remove_from_cart(product)
     cart_total_price = cart.update_total_price()
     cart.total_quantity = cart.get_products_quantity()
     return JsonResponse({'cart_total': cart.total_quantity,
@@ -138,7 +128,7 @@ def remove_from_cart_view(request):
 
 
 def change_item_quantity(request):
-    cart = get_or_create_cart(request)
+    cart = Cart.objects.get_or_create_cart(request)
     quantity = request.GET['quantity']
     item_id = request.GET['item_id']
     item = cart.items.get(id=int(item_id))
@@ -153,7 +143,7 @@ def change_item_quantity(request):
 
 
 def authenticate_user(request):
-    if request.is_ajax() and 'checkout' not in request.POST:
+    if request.is_ajax() and 'checkout' not in request.POST and 'delete-favorites' not in request.POST:
         login_form = UserLoginForm(request.POST)
         if login_form.is_valid():
             username = login_form.cleaned_data['username']
@@ -165,8 +155,7 @@ def authenticate_user(request):
 
 
 def add_to_favorites(request):
-    slug = request.GET['slug']
-    product = Product.objects.get(slug=slug)
+    product = Product.objects.get(slug=request.GET['slug'])
     if request.user.is_authenticated:
         user_authenticated = True
         if request.user not in product.users.all():
@@ -188,9 +177,9 @@ def add_to_favorites(request):
 
 @login_required
 def show_favorites(request):
-    cart = get_or_create_cart(request)
+    cart = Cart.objects.get_or_create_cart(request)
     products_list = cart.get_product_items()
-    user_favorites_products = Product.objects.filter(users=request.user)
+    user_favorites_products = Product.custom_objects.get_favorites_or_none(request.user)
     context = {
         'cart': cart,
         'products_list': products_list,
@@ -204,8 +193,14 @@ def is_user_authenticated(request):
 
 
 def show_contacts(request):
-    cart = get_or_create_cart(request)
+    cart = Cart.objects.get_or_create_cart(request)
     context = {
         'cart': cart,
     }
     return render(request, 'store_app/contacts.html', context)
+
+
+def delete_from_favorites(request, *args, **kwargs):
+    product = Product.objects.get(slug=kwargs['product_slug'])
+    product.users.remove(request.user)
+    return HttpResponseRedirect(reverse('favorites'))
