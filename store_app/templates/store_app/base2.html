@@ -19,10 +19,11 @@
     <link href="{% static 'css/1.css' %}" rel="stylesheet" type="text/css">
 </head>
 <body>
-{#{% if not user.is_authenticated %}#}
 <div id="modal-login"></div>
 <div class="popup-login-window" id="popup-login-window">
-    <div class="" id="flag"><div class="popup-login-window__close-button"></div></div>
+    <div class="" id="flag">
+        <div class="popup-login-window__close-button"></div>
+    </div>
     <div class="popup-login-window__wrapper">
         <p class="popup-login-window__title">АВТОРИЗАЦИЯ</p>
         <form class="login-form" method="post">
@@ -32,11 +33,11 @@
             <p class="login-form__input" id="user-password">{{ login_form.password }}</p>
             <p class="login-form__paragraph">Забыли пароль?</p>
             <button type="submit" id="authenticate">Войти</button>
-            <p class="login-form__register"><a href="{% url 'register' %}" class="login-form__register-link">Регистрация</a></p>
+            <p class="login-form__register"><a href="{% url 'register' %}"
+                                               class="login-form__register-link">Регистрация</a></p>
         </form>
     </div>
 </div>
-{#{% endif %}#}
 <header>
     <div class="upper-popup-window-hidden"></div>
     <div class="upper-popup-window">
@@ -73,7 +74,8 @@
                         <ul class="user-list">
                             {% if user.is_authenticated %}
                                 <li class="user-list__item">
-                                    <a class="user-list__link user-list__item--log" href="{% url 'sign_out' %}">Выйти</a>
+                                    <a class="user-list__link user-list__item--log"
+                                       href="{% url 'sign_out' %}">Выйти</a>
                                 </li>
                             {% else %}
                                 <li class="user-list__item user-list__item--log">
@@ -85,7 +87,8 @@
                             {% endif %}
                         </ul>
                         <a href="#" class="right-side__link">Вы недавно смотрели</a>
-                        <a href="{% url 'favorites' %}" id="my-favorites" class="right-side__link">Мои закладки: (<span id="favorites-quantity">{{ user_favorites_quantity }}</span>)</a>
+                        <a href="{% url 'favorites' %}" id="my-favorites" class="right-side__link">Мои закладки: (<span
+                                id="favorites-quantity">{{ user_favorites_quantity }}</span>)</a>
                     </div>
                     <div class="right-side__item right-side__item--cart">
                         <p class="cart">
@@ -101,7 +104,8 @@
                                 <p class="cart__paragraph">Сумма: <span
                                         id="cart-total-sum">{{ cart.cart_total }}</span> руб.</p>
                             </div>
-                            <p id="cart__order-button" class="cart__order-button"><span class="">Оформить заказ</span></p>
+                            <p id="cart__order-button" class="cart__order-button"><span class="">Оформить заказ</span>
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -157,6 +161,10 @@
 
 </body>
 </html>
+<script src="{% static 'javascript/js.js' %}"></script>
+<script src="{% static 'javascript/upper_popup_window.js' %}"></script>
+<script src="{% static 'javascript/active_barlink.js' %}"></script>
+<script src="{% static 'javascript/cart.js' %}"></script>
 {% block js %}
-    <script src="{% static 'javascript/js.js' %}"></script>
+
 {% endblock %}

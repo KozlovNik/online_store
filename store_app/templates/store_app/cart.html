@@ -35,7 +35,8 @@
                                                     <p class="delete-bookmark-wrapper">
                                                         <a class="remove-from-cart" data-slug="{{ item.product.slug }}"
                                                            href="">Удалить</a> |
-                                                        <a href="" class="bookmarked" data-slug="{{ item.product.slug }}">
+                                                        <a href="" class="bookmarked"
+                                                           data-slug="{{ item.product.slug }}">
                                                             {% if item.product in user_favorites_products %}
                                                                 Товар в закладках
                                                             {% else %}
@@ -55,8 +56,9 @@
                                                            data-id="{{ item.id }}"
                                                            value="{{ item.quantity }}" min="1" max="100">
                                                 </form>
-                                                <div class="left-side__item customer-cart__total-item-sum"
-                                                     id="cart-item-total-{{ item.id }}">{{ item.item_total }} руб.
+                                                <div class="left-side__item customer-cart__total-item-sum"><span
+                                                        id="cart-item-total-{{ item.id }}">{{ item.item_total }}</span>
+                                                    руб.
                                                 </div>
                                             </div>
                                         </div>
@@ -65,7 +67,9 @@
                                 <div class="cart-total-part">
                                     <div class="cart-total-part__item"></div>
                                     <div class="cart-total-part__item">Итого</div>
-                                    <div class="cart-total-part__item" id="cart-total-price">{{ cart.cart_total }} руб.</div>
+                                    <div class="cart-total-part__item">
+                                        <span id="cart-total-price">{{ cart.cart_total }}</span> руб.
+                                    </div>
                                 </div>
                             </div>
                         {% endif %}
@@ -87,6 +91,5 @@
     </main>
 {% endblock %}
 {% block js %}
-    <script src="{% static 'javascript/js.js' %}"></script>
-    <script src="{% static 'javascript/cart.js' %}"></script>
+    <script src="{% static 'javascript/delivery_choice.js' %}"></script>
 {% endblock %}

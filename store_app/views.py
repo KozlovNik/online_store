@@ -11,7 +11,6 @@ from django.urls import reverse
 
 
 def index(request):
-    print(request.session['cart_id'])
     cart = Cart.objects.get_or_create_cart(request)
     products = Product.objects.all()
     context = {
@@ -70,7 +69,6 @@ def show_product(request, **kwargs):
 
 
 def cart_view(request, **kwargs):
-    print(request.COOKIES)
     cart = Cart.objects.get_or_create_cart(request)
     user_favorites_products = Product.custom_objects.get_favorites_or_none(request.user)
     if request.method == 'POST' and 'checkout' in request.POST:
