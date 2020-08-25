@@ -16,6 +16,7 @@ transliterate = "==1.10.2"
 Django = "==2.2.3"
 Pillow = "==7.2.0"
 dj-database-url = "*"
+whitenoise = "*"
 
 [requires]
 python_version = "3.8"
