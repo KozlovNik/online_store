@@ -1,0 +1,261 @@
+.upper-popup-window {
+    background-color: #db5657;
+}
+
+.upper-popup-window-hidden {
+    background-color: #db5657;
+    display: none;
+    height: 5px;
+}
+
+.upper-popup-window__wrapper {
+    width: 1000px;
+    height: 40px;
+    text-align: center;
+    margin: 0 auto;
+    position: relative;
+}
+
+.upper-popup-window__text {
+    margin-top: 6px;
+    display: inline-block;
+    text-align: center;
+    font: 18px 'Century Gothic';
+    font-weight: 900;
+    color: #fffcd9;
+}
+
+.upper-popup-window__close-button {
+    cursor: pointer;
+    position: absolute;
+    right: 20px;
+    top: 10px;
+    width: 21px;
+    height: 21px;
+}
+
+.upper-popup-window__close-button:before, .upper-popup-window__close-button:after {
+    position: absolute;
+    left: 10px;
+    content: '';
+    height: 20px;
+    width: 2px;
+    background-color: #fffcd9;
+}
+
+.upper-popup-window__close-button:before {
+    transform: rotate(45deg);
+}
+
+.upper-popup-window__close-button:after {
+    transform: rotate(-45deg);
+}
+
+.header-wrapper-outer {
+    width: 1000px;
+    margin: 0 auto;
+}
+
+.header-wrapper-inner {
+    width: 960px;
+    margin: 0 auto;
+}
+
+.header-upper-part {
+    width: 1000px;
+}
+
+.left-side {
+    height: 100%;
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    width: 350px;
+}
+
+.left-side__phone-number {
+    color: #23251b;
+    font: 14px 'Century Gothic';
+}
+
+.left-side__working-hours {
+    font: 14px 'Century Gothic';
+    color: #7d7262;
+}
+
+.left-side__delivery {
+    font: 14px 'Century Gothic';
+    color: #7d7262;
+}
+
+.left-side__delivery-image {
+    width: 30px;
+    height: 25px;
+}
+
+.left-side__delivery-wrapper {
+    align-items: center;
+    width: 170px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.right-side {
+    display: flex;
+    justify-content: space-between;
+    width: 370px;
+}
+
+.right-side__link {
+    color: #616161;
+    display: block;
+    text-decoration: underline dotted #616161;
+    font: 14px 'Century Gothic';
+    padding-top: 5px;
+}
+
+.right-side__link:hover {
+    color: rgba(255, 67, 54, 0.98);
+    text-decoration: underline dotted rgba(255, 67, 54, 0.98);
+}
+
+.right-side__item {
+    width: 160px;
+}
+
+.right-side__item--cart {
+    width: 190px;
+}
+
+.logo {
+    left: calc(50% - 80px);
+    top: 30px;
+    position: absolute;
+    width: 160px;
+    height: 60px;
+}
+
+.header-upper-part__wrapper {
+    position: relative;
+    width: 960px;
+    margin: 0 auto;
+    min-height: 120px;
+    display: flex;
+    height: 100%;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.header-lower-part {
+    width: 1000px;
+    box-sizing: border-box;
+    border-top: 1px solid rgba(81, 83, 77, 0.51);
+    border-bottom: 1px solid rgba(81, 83, 77, 0.51);
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    margin: 0 auto;
+    width: 960px;
+    min-height: 58px;
+    align-items: center;
+}
+
+.navbar__link {
+    text-decoration: none;
+    font: 20px 'Lato', sans-serif;
+    color: #51534c;
+    font-weight: 500;
+}
+
+.navbar__link--active {
+    color: #779750;
+}
+
+.navbar__link:hover {
+    color: #779750;
+    transition-delay: 0.1s;
+    transition-duration: 0.1s;
+}
+
+.navbar__link:active {
+    color: #499700;
+}
+
+.user-list {
+    justify-content: space-between;
+    display: flex;
+    list-style: none;
+}
+
+.user-list__item {
+    text-align: center;
+    min-width: 40px;
+    border-radius: 3px;
+    background-color: #ff755d;
+    padding: 5px;
+}
+
+.user-list__item--reg {
+    background-color: #779750;
+}
+
+.user-list__link {
+    color: white;
+    font: 14px 'Lago', sans-serif;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.cart-order__wrapper {
+    width: 100%;
+    display: flex;
+}
+
+.cart__image {
+    width: 30px;
+    height: 30px;
+}
+
+.cart__link {
+    text-decoration: none;
+    font: 20px 'Lato', sans-serif;
+    color: #db5657;
+    font-weight: 600;
+}
+
+.cart__paragraph {
+    padding-top: 5px;
+    padding-right: 5px;
+    font: 10px 'Lato', sans-serif;
+}
+
+.cart__order-button {
+    display: none;
+    text-align: center;
+    font: 12px 'Century Gothic';
+    color: white;
+    border-radius: 3px;
+    width: 80px;
+    height: 40px;
+    position: relative;
+    background: #779750;
+}
+
+.cart__order-button:before {
+    content: "";
+    position: absolute;
+    right: -12px;
+    bottom: 0;
+    width: 0;
+    height: 0;
+    border-left: 13px solid #779750;
+    border-top: 20px solid transparent;
+    border-bottom: 20px solid transparent;
+}
+
+.cart__order-button span {
+    display: inline-block;
+    padding-top: 5px;
+}

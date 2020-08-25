@@ -1,0 +1,155 @@
+.cart__heading {
+    color: rgba(219, 86, 87, 0.72);
+    font: 25px 'Lato', sans-serif;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.cart__heading--empty-cart {
+    text-align: center;
+    padding-top: 40px;
+}
+
+.customer-cart-wrapper {
+    width: 100%;
+}
+
+.customer-cart-row {
+    display: flex;
+}
+
+.customer-cart-header {
+    padding: 0 20px;
+    height: 60px;
+    display: flex;
+    width: 100%;
+    vertical-align: center;
+    align-items: center;
+    text-align: center;
+    box-sizing: border-box;
+    border-bottom: 1px solid #9f9f9f;
+}
+
+.customer-cart-header__item {
+    color: #636363;
+    font: 14px 'Lato', sans-serif;
+    flex: 1;
+}
+
+.customer-cart__header--name {
+    flex: 3;
+}
+
+.customer-cart {
+    font-family: "Lato", sans-serif;
+    width: 100%;
+}
+
+.customer-cart__remove-item {
+    text-decoration: none;
+    font-size: 12px;
+    color: rgba(0, 0, 0, 0.62);
+}
+
+.cart-row {
+    height: 150px;
+    width: 100%;
+    border-bottom: 1px solid #9f9f9f;
+}
+
+.cart-row__wrapper {
+    padding: 20px;
+    display: flex;
+}
+
+.cart-row__image {
+    height: 110px;
+    width: 110px;
+}
+
+.cart-row__title {
+    margin-top: 20px;
+    word-wrap: break-word;
+}
+
+.cart-row__name {
+    text-decoration: none;
+    color: #434343;
+}
+
+.cart-row__name:hover {
+    color: #db5657;
+}
+
+.cart-row__left-side {
+    flex: 1;
+    display: flex;
+}
+
+.cart-row__right-side {
+    flex: 1;
+    display: flex;
+    text-align: center;
+    margin-top: 20px;
+}
+
+
+.left-side__item {
+    flex: 1;
+}
+
+.customer-cart__total-item-sum {
+    font-family: 'Century Gothic', sans-serif;
+    font-weight: 700;
+    font-size: 18px;
+}
+
+.customer-cart__item-price {
+    font-family: 'Century Gothic', sans-serif;
+    color: #979797;
+    font-weight: 700;
+    font-size: 18px;
+}
+
+.cart-row__title {
+    font: 16px 'Century Gothic', sans-serif;
+}
+
+.delete-bookmark-wrapper {
+    color: #979797;
+    font-size: 12px;
+}
+
+.delete-bookmark-wrapper a {
+    text-decoration: none;
+    color: #979797;
+    font-size: 12px;
+}
+
+.delete-bookmark-wrapper a:hover {
+    color: #1e7e34;
+}
+
+.cart-total-part {
+    display: flex;
+    text-align: center;
+    min-height: 60px;
+    align-items: center;
+    font-family: 'Century Gothic', sans-serif;
+    font-weight: 700;
+    font-size: 18px;
+    padding: 0 20px;
+}
+
+.cart-total-part__item:nth-of-type(1) {
+    flex: 4;
+}
+
+.cart-total-part__item:nth-of-type(2) {
+    flex: 1;
+}
+
+.cart-total-part__item:nth-of-type(3) {
+    flex: 1;
+
+}
